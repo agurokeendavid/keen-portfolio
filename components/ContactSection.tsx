@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./Button";
-import { Mail, Github, Linkedin, Send, MapPin, Phone } from "lucide-react";
+import { Mail, Github, Linkedin, Send, MapPin, Phone, Facebook } from "lucide-react";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -49,6 +49,13 @@ export function ContactSection() {
       href: 'https://linkedin.com/in/keendavidaguro',
       label: 'Keen David Aguro',
       description: 'Connect with me professionally'
+    },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      href: 'https://facebook.com/keendavid',
+      label: 'Keen David',
+      description: 'Follow me on Facebook'
     }
   ];
 

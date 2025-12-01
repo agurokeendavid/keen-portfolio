@@ -13,19 +13,20 @@ export interface Project {
 // Dummy project data - replace with real data later
 export const projects: Project[] = [
   {
-    id: "project-alpha",
-    title: "Project Alpha",
-    shortDescription: "A modern web application built with React and Node.js for real-time data processing.",
+    id: "study-connect",
+    title: "Study Connect",
+    shortDescription: "A comprehensive ASP.NET Core MVC web application designed to facilitate collaborative learning through study groups. StudyConnect enables students and learners to create, join, and manage study groups with real-time messaging, resource sharing, and meeting coordination capabilities.",
     fullDescription: "Project Alpha is a comprehensive web application that demonstrates modern full-stack development practices. Built with React on the frontend and Node.js on the backend, it features real-time data processing, responsive design, and secure authentication. The application showcases advanced state management, API integration, and performance optimization techniques.",
-    thumbnail: "/placeholder/project-alpha-thumb.jpg",
+    thumbnail: "/projects/study_connect/dashboard.png",
     screenshots: [
-      "/placeholder/project-alpha-1.jpg",
-      "/placeholder/project-alpha-2.jpg",
-      "/placeholder/project-alpha-3.jpg",
-      "/placeholder/project-alpha-4.jpg"
+      "/projects/study_connect/home.png",
+      "/projects/study_connect/login.png",
+      "/projects/study_connect/dashboard.png",
+      "/projects/study_connect/messages.png",
+      "/projects/study_connect/calendar.png",
     ],
-    techStack: ["React", "Node.js", "TypeScript", "MongoDB", "Socket.io", "Tailwind CSS"],
-    githubUrl: "https://github.com/keendavid/project-alpha",
+    techStack: ["Javascript", "Bootstrap", "DevExtreme", ".NET 9 MVC", "SignalR", "MySQL", "Entity Framework", "Docker", "Github Actions"],
+    githubUrl: "https://github.com/agurokeendavid/StudyConnect",
     liveUrl: "https://project-alpha.demo.com"
   },
   {

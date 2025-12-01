@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Prevent flash of unstyled content */
+:root {
+  color-scheme: light dark;
+}
+
 /* Custom CSS Variables for Dark/Light Mode */
 :root {
   --background: #ffffff;

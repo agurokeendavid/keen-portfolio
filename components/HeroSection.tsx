@@ -124,6 +124,7 @@ export function HeroSection() {
                       src="/formal_pic.jpg"
                       alt="Keen David Aguro"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                       priority
                       onError={(e) => {

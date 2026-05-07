@@ -112,6 +112,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                   src={project.screenshots[currentImageIndex]}
                   alt={`${project.title} screenshot ${currentImageIndex + 1}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 75vw"
                   className="object-cover"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -179,6 +180,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                         src={screenshot}
                         alt={`Thumbnail ${index + 1}`}
                         fill
+                        sizes="80px"
                         className="object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;

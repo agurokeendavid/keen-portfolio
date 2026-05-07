@@ -50,6 +50,7 @@ export function AboutSection() {
                   src="/formal_pic.jpg"
                   alt="Keen David Aguro"
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   onError={(e) => {
                     // Fallback to placeholder if image doesn't exist

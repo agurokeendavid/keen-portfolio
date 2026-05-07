@@ -2,6 +2,10 @@
 
 A premium, monochrome personal portfolio built with **Next.js 16**, **TypeScript**, and **Tailwind CSS 4**. This portfolio showcases 6+ years of professional software development experience with a clean, minimal, and modern design approach.
 
+## Live Site
+
+- [https://keendavidaguro-portfolio.vercel.app/](https://keendavidaguro-portfolio.vercel.app/)
+
 ![Portfolio Preview](public/portfolio-preview.jpg)
 
 ## 🚀 Features

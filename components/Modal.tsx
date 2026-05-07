@@ -14,11 +14,11 @@ export interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, children, className }: ModalProps) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

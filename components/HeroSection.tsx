@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Download } from "lucide-react";
 import { Button } from "./Button";
 import { Badge } from "./Badge";
-import { techStack } from "@/data/projects";
+import { heroTechStack } from "@/data/projects";
 
 export function HeroSection() {
   const scrollToSection = (href: string) => {
@@ -14,9 +14,6 @@ export function HeroSection() {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  // Tech icons for the floating strip
-  const heroTechStack = techStack.slice(0, 8); // Show first 8 technologies
 
   return (
     <section id="home" className="min-h-screen bg-linear-to-br from-black via-gray-900 to-gray-800 text-white relative overflow-hidden">
@@ -165,7 +162,7 @@ export function HeroSection() {
                 Technologies I work with:
               </span>
               <div className="flex flex-wrap justify-center gap-3">
-                {heroTechStack.map((tech, index) => (
+                {heroTechStack.map((tech: { name: string; category: string }, index: number) => (
                   <motion.div
                     key={tech.name}
                     initial={{ opacity: 0, scale: 0.8 }}

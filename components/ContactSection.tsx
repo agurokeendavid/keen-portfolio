@@ -32,8 +32,8 @@ export function ContactSection() {
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:keen.david.aguro@gmail.com',
-      label: 'keen.david.aguro@gmail.com',
+      href: 'mailto:agurokeendavid@gmail.com',
+      label: 'agurokeendavid@gmail.com',
       description: 'Send me an email'
     },
     {

@@ -39,22 +39,22 @@ export function ContactSection() {
     {
       name: 'GitHub',
       icon: Github,
-      href: 'https://github.com/keendavid',
-      label: '@keendavid',
+      href: 'https://github.com/agurokeendavid',
+      label: '@agurokeendavid',
       description: 'Check out my repositories'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
-      href: 'https://linkedin.com/in/keendavidaguro',
+      href: 'https://linkedin.com/in/agurokeendavid',
       label: 'Keen David Aguro',
       description: 'Connect with me professionally'
     },
     {
       name: 'Facebook',
       icon: Facebook,
-      href: 'https://facebook.com/keendavid',
-      label: 'Keen David',
+      href: 'https://facebook.com/agurokeendavid',
+      label: 'Keen David Aguro',
       description: 'Follow me on Facebook'
     }
   ];

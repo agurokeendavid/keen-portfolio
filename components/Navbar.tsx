@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const getPreferredDarkMode = () => {
@@ -114,6 +114,17 @@ export function Navbar() {
                   {link.name}
                 </motion.button>
               ))}
+              <motion.a
+                href="/resume.pdf"
+                download="Keen David Aguro Resume.pdf"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * (navLinks.length + 2) }}
+                className="inline-flex items-center gap-1.5 border border-current text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Resume
+              </motion.a>
             </div>
           </div>
 
@@ -157,6 +168,14 @@ export function Navbar() {
                 {link.name}
               </button>
             ))}
+            <a
+              href="/resume.pdf"
+              download="Keen David Aguro Resume.pdf"
+              className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Resume
+            </a>
           </div>
         </motion.div>
       )}

@@ -6,7 +6,7 @@ A premium, monochrome personal portfolio built with **Next.js 16**, **TypeScript
 
 - [https://keendavidaguro-portfolio.vercel.app/](https://keendavidaguro-portfolio.vercel.app/)
 
-![Portfolio Preview](public/portfolio-preview.jpg)
+![Portfolio Preview](public/portfolio-preview.png)
 
 ## 🚀 Features
 

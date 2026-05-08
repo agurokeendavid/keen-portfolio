@@ -256,8 +256,46 @@ export const projects: Project[] = [
       "Stats bar highlighting key firm metrics (20+ projects, 5+ markets)",
       "Contact form with submission feedback state",
       "Fully responsive layout built with utility-first Tailwind CSS",
-    ]
-  }
+    ],
+  },
+  {
+    id: "oformat",
+    title: "OFormAT",
+    shortDescription:
+      "A mobile quiz app for practicing and tracking understanding of foundational discrete mathematics topics through structured, topic-based assessments.",
+    fullDescription:
+      "OFormAT is a mobile learning application designed to help students strengthen their understanding of core discrete mathematics concepts through interactive quizzes. The app provides a guided quiz experience from login to question answering, instant scoring, and a dedicated result page for feedback. It also includes quiz history so learners can review past attempts and monitor progress over time. Built for real-world use and published on Google Play, OFormAT focuses on simple navigation, reliable performance, and an education-first user experience.",
+    thumbnail: "/projects/oformat/splashscreen.png",
+    screenshots: [
+      "/projects/oformat/splashscreen.png",
+      "/projects/oformat/login.png",
+      "/projects/oformat/main-menu.png",
+      "/projects/oformat/quiz-history.png",
+      "/projects/oformat/take-quiz.png",
+      "/projects/oformat/answer-question.png",
+      "/projects/oformat/result-page.png",
+      "/projects/oformat/published-app.png",
+    ],
+    techStack: [
+      "C#",
+      "Xamarin.Forms",
+      ".NET (Xamarin)",
+      "SQLite (local persistence)",
+      "Android (Google Play deployment)",
+      "XAML (UI layout)",
+    ],
+    features: [
+      "Splash screen and clean onboarding flow",
+      "User login and personalized quiz session access",
+      "Topic-based quiz selection from a main menu",
+      "Interactive question-by-question answering interface",
+      "Automatic scoring and instant result summary",
+      "Quiz history tracking for past attempts",
+      "Progress-focused learning flow for revision and practice",
+      "Published production build on Google Play Store",
+    ],
+    liveUrl: "https://play.google.com/store/apps/details?id=com.kda.oformat",
+  },
 ];
 
 // Curated list for hero section — complex/enterprise technologies a recruiter should notice
@@ -285,46 +323,205 @@ export interface TechItem {
 // Technology stack for About section
 export const techStack: TechItem[] = [
   // Frontend — Core
-  { name: "HTML",        category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
-  { name: "CSS",         category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
-  { name: "JavaScript",  category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
-  { name: "TypeScript",  category: "Frontend", tier: "core",      proficiency: "Familiar",     yearsExp: 3 },
-  { name: "Angular",     category: "Frontend", tier: "core",      proficiency: "Familiar",     yearsExp: 3 },
-  { name: "Bootstrap",   category: "Frontend", tier: "core",      proficiency: "Expert", yearsExp: 7 },
-  { name: "SCSS",        category: "Frontend", tier: "core",      proficiency: "Familiar", yearsExp: 3 },
+  {
+    name: "HTML",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "CSS",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "JavaScript",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "TypeScript",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 3,
+  },
+  {
+    name: "Angular",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 3,
+  },
+  {
+    name: "Bootstrap",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "SCSS",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 3,
+  },
 
   // Frontend — Have Used
-  { name: "Vue.js",      category: "Frontend", tier: "have-used", proficiency: "Familiar" },
+  {
+    name: "Vue.js",
+    category: "Frontend",
+    tier: "have-used",
+    proficiency: "Familiar",
+  },
 
   // Backend — Core
-  { name: "C#",              category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 7 },
-  { name: "ASP.NET Core",    category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 7 },
-  { name: "Entity Framework",category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 6 },
-  { name: "Laravel",         category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 5 },
-  { name: "PHP",             category: "Backend", tier: "core", proficiency: "Expert", yearsExp: 7 },
-  { name: "SignalR",         category: "Backend", tier: "core", proficiency: "Proficient", yearsExp: 3 },
+  {
+    name: "C#",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "ASP.NET Core",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "Entity Framework",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 6,
+  },
+  {
+    name: "Laravel",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 5,
+  },
+  {
+    name: "PHP",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "SignalR",
+    category: "Backend",
+    tier: "core",
+    proficiency: "Proficient",
+    yearsExp: 3,
+  },
 
   // Database — Core
-  { name: "MySQL",      category: "Database", tier: "core", proficiency: "Expert", yearsExp: 7 },
-  { name: "SQL Server", category: "Database", tier: "core", proficiency: "Expert", yearsExp: 3 },
-  { name: "Oracle",     category: "Database", tier: "core", proficiency: "Expert", yearsExp: 4 },
+  {
+    name: "MySQL",
+    category: "Database",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 7,
+  },
+  {
+    name: "SQL Server",
+    category: "Database",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 3,
+  },
+  {
+    name: "Oracle",
+    category: "Database",
+    tier: "core",
+    proficiency: "Expert",
+    yearsExp: 4,
+  },
 
   // Mobile — Core
-  { name: ".NET MAUI", category: "Mobile", tier: "core",      proficiency: "Proficient", yearsExp: 2 },
+  {
+    name: ".NET MAUI",
+    category: "Mobile",
+    tier: "core",
+    proficiency: "Proficient",
+    yearsExp: 2,
+  },
 
   // Mobile — Have Used
-  { name: "Java",  category: "Mobile", tier: "have-used", proficiency: "Familiar" },
-  { name: "Swift", category: "Mobile", tier: "have-used", proficiency: "Familiar" },
+  {
+    name: "Java",
+    category: "Mobile",
+    tier: "have-used",
+    proficiency: "Familiar",
+  },
+  {
+    name: "Swift",
+    category: "Mobile",
+    tier: "have-used",
+    proficiency: "Familiar",
+  },
 
   // DevOps — Core
-  { name: "Docker",         category: "DevOps", tier: "core", proficiency: "Proficient", yearsExp: 3 },
-  { name: "GitHub Actions", category: "DevOps", tier: "core", proficiency: "Proficient", yearsExp: 3 },
+  {
+    name: "Docker",
+    category: "DevOps",
+    tier: "core",
+    proficiency: "Proficient",
+    yearsExp: 3,
+  },
+  {
+    name: "GitHub Actions",
+    category: "DevOps",
+    tier: "core",
+    proficiency: "Proficient",
+    yearsExp: 3,
+  },
 
   // AI Tools — Core
-  { name: "Claude",          category: "AI Tools", tier: "core", proficiency: "Proficient" },
-  { name: "ChatGPT",         category: "AI Tools", tier: "core", proficiency: "Proficient" },
-  { name: "GitHub Copilot",  category: "AI Tools", tier: "core", proficiency: "Proficient" },
-  { name: "Codex",           category: "AI Tools", tier: "core", proficiency: "Familiar"  },
-  { name: "Amazon Q",        category: "AI Tools", tier: "core", proficiency: "Familiar"  },
-  { name: "Junie",           category: "AI Tools", tier: "core", proficiency: "Familiar"  },
+  {
+    name: "Claude",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Proficient",
+  },
+  {
+    name: "ChatGPT",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Proficient",
+  },
+  {
+    name: "GitHub Copilot",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Proficient",
+  },
+  {
+    name: "Codex",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Familiar",
+  },
+  {
+    name: "Amazon Q",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Familiar",
+  },
+  {
+    name: "Junie",
+    category: "AI Tools",
+    tier: "core",
+    proficiency: "Familiar",
+  },
 ];

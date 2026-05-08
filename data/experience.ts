@@ -19,12 +19,12 @@ export const experiences: Experience[] = [
     period: "Jan 2019 – Present",
     current: true,
     description: [
-      "Enerlytic Energy Monitoring Platform – Built .NET 8 Web API backend integrating European utility APIs with Angular dashboards.",
+      "Enerlytic Energy Monitoring Platform – Built .NET 6 Web API backend integrating European utility APIs with Angular dashboards.",
       "Backride Pinas Booking Platform – Developed Laravel backend APIs and Angular frontend for ride booking services.",
       "Federal Gov App – Implemented Laravel APIs and mobile integrations for Android (Java) and iOS (Swift).",
       "Delivered management systems and dashboards for startups, small businesses, and academic thesis projects.",
     ],
-    techStack: [".NET 8", "Angular", "Laravel", "Java (Android)", "Swift", "MySQL", "REST APIs"],
+    techStack: [".NET 6", "Angular", "Laravel", "Java (Android)", "Swift", "MySQL", "REST APIs"],
   },
   {
     id: "exp-ninja-tribe",

@@ -348,7 +348,7 @@ export const techStack: TechItem[] = [
     name: "TypeScript",
     category: "Frontend",
     tier: "core",
-    proficiency: "Familiar",
+    proficiency: "Proficient",
     yearsExp: 3,
   },
   {

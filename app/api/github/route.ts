@@ -27,6 +27,7 @@ const CONTRIBUTION_QUERY = `
   query($login: String!) {
     user(login: $login) {
       contributionsCollection {
+        restrictedContributionsCount
         contributionCalendar {
           totalContributions
           weeks {
@@ -95,11 +96,14 @@ export async function GET() {
 
       if (graphqlRes.ok) {
         const gql = await graphqlRes.json();
-        const calendar =
-          gql?.data?.user?.contributionsCollection?.contributionCalendar;
+        const collection = gql?.data?.user?.contributionsCollection;
+        const calendar = collection?.contributionCalendar;
         if (calendar) {
+          // restrictedContributionsCount = private contributions hidden from profile;
+          // summing gives the true total regardless of the user's "show private" setting.
+          const restricted: number = collection.restrictedContributionsCount ?? 0;
           contributions = {
-            total: calendar.totalContributions as number,
+            total: (calendar.totalContributions as number) + restricted,
             weeks: calendar.weeks as ContributionWeek[],
           };
         }

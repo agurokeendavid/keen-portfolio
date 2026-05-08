@@ -302,7 +302,7 @@ export function OpenSourceSection() {
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">
                     {stats?.contributions
-                      ? `${stats.contributions.total.toLocaleString()} contributions · last year`
+                      ? `${stats.contributions.total.toLocaleString()} contributions (public + private) · last year`
                       : "Last 6 months · preview"}
                   </p>
                 </div>

@@ -40,12 +40,34 @@ interface GitHubRepo {
   topics: string[];
 }
 
+interface ContributionDay {
+  contributionCount: number;
+  date: string;
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
 interface GitHubStats {
   publicRepos: number;
   totalStars: number;
   totalForks: number;
   followers: number;
   topRepos: GitHubRepo[];
+  contributions: { total: number; weeks: ContributionWeek[] } | null;
+}
+
+function getContributionOpacity(count: number): string {
+  if (count === 0) return "opacity-10";
+  if (count <= 2) return "opacity-30";
+  if (count <= 5) return "opacity-50";
+  if (count <= 9) return "opacity-70";
+  return "opacity-100";
+}
+
+function flattenLast26Weeks(weeks: ContributionWeek[]): ContributionDay[] {
+  return weeks.slice(-26).flatMap((w) => w.contributionDays);
 }
 
 const LANGUAGE_COLORS: Record<string, string> = {
@@ -279,27 +301,41 @@ export function OpenSourceSection() {
                     Contribution Graph
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">
-                    Last 6 months · preview
+                    {stats?.contributions
+                      ? `${stats.contributions.total.toLocaleString()} contributions · last year`
+                      : "Last 6 months · preview"}
                   </p>
                 </div>
-                <span className="text-xs px-2.5 py-1 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
-                  Needs PAT
-                </span>
+                {!stats?.contributions && (
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
+                    Needs PAT
+                  </span>
+                )}
               </div>
 
               <div className="grid grid-cols-[repeat(26,_1fr)] gap-1">
-                {GRAPH_CELLS.map((cls, i) => (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-sm bg-gray-300 dark:bg-gray-700 ${cls}`}
-                  />
-                ))}
+                {stats?.contributions
+                  ? flattenLast26Weeks(stats.contributions.weeks).map((day, i) => (
+                      <div
+                        key={i}
+                        title={`${day.date}: ${day.contributionCount}`}
+                        className={`aspect-square rounded-sm bg-gray-300 dark:bg-gray-700 ${getContributionOpacity(day.contributionCount)}`}
+                      />
+                    ))
+                  : GRAPH_CELLS.map((cls, i) => (
+                      <div
+                        key={i}
+                        className={`aspect-square rounded-sm bg-gray-300 dark:bg-gray-700 ${cls}`}
+                      />
+                    ))}
               </div>
 
-              <p className="text-xs text-center text-gray-400 dark:text-gray-600 mt-4">
-                Add <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">GITHUB_PAT</code> to{" "}
-                <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">.env.local</code> to unlock live data
-              </p>
+              {!stats?.contributions && (
+                <p className="text-xs text-center text-gray-400 dark:text-gray-600 mt-4">
+                  Add <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">GITHUB_PAT</code> to{" "}
+                  <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">.env.local</code> to unlock live data
+                </p>
+              )}
             </div>
 
             {/* CTA */}

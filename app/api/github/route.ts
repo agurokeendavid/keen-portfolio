@@ -14,6 +14,33 @@ interface RawRepo {
   topics: string[];
 }
 
+export interface ContributionDay {
+  contributionCount: number;
+  date: string;
+}
+
+export interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
+const CONTRIBUTION_QUERY = `
+  query($login: String!) {
+    user(login: $login) {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              contributionCount
+              date
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export async function GET() {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
@@ -50,6 +77,35 @@ export async function GET() {
     const totalStars = ownRepos.reduce((s, r) => s + r.stargazers_count, 0);
     const totalForks = ownRepos.reduce((s, r) => s + r.forks_count, 0);
 
+    // Fetch contribution calendar via GraphQL — requires PAT with read:user scope
+    let contributions: { total: number; weeks: ContributionWeek[] } | null = null;
+    if (process.env.GITHUB_PAT) {
+      const graphqlRes = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_PAT}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: CONTRIBUTION_QUERY,
+          variables: { login: GITHUB_USERNAME },
+        }),
+        next: { revalidate: 3600 },
+      });
+
+      if (graphqlRes.ok) {
+        const gql = await graphqlRes.json();
+        const calendar =
+          gql?.data?.user?.contributionsCollection?.contributionCalendar;
+        if (calendar) {
+          contributions = {
+            total: calendar.totalContributions as number,
+            weeks: calendar.weeks as ContributionWeek[],
+          };
+        }
+      }
+    }
+
     return NextResponse.json({
       publicRepos: user.public_repos as number,
       totalStars,
@@ -65,6 +121,7 @@ export async function GET() {
         language: r.language,
         topics: r.topics,
       })),
+      contributions,
     });
   } catch {
     return NextResponse.json({ error: "Failed to fetch GitHub data" }, { status: 500 });

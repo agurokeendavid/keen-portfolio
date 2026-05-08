@@ -61,7 +61,7 @@ export function HeroSection() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   className="text-xl md:text-2xl text-gray-300 font-medium"
                 >
-                  Software Developer — 6+ Years of Experience
+                  Software Developer — 7+ Years of Experience
                 </motion.p>
                 
                 <motion.p
@@ -70,8 +70,8 @@ export function HeroSection() {
                   transition={{ duration: 0.6, delay: 1.0 }}
                   className="text-lg text-gray-400 max-w-lg leading-relaxed"
                 >
-                  I build modern, scalable web applications and enterprise solutions
-                  using cutting-edge technologies and best practices.
+                  I design and build enterprise systems across government, energy, and fintech —
+                  from .NET APIs and Angular dashboards to Laravel backends and mobile apps.
                 </motion.p>
               </div>
 

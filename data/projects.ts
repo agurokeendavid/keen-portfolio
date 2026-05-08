@@ -265,6 +265,7 @@ export const techStack = [
   { name: "SQL Server", category: "Database" },
   { name: "Oracle", category: "Database" },
 
+  { name: ".NET MAUI", category: "Mobile" },
   { name: "Java", category: "Mobile" },
   { name: "Swift", category: "Mobile" },
 

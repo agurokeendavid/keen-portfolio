@@ -77,22 +77,22 @@ export function AboutSection() {
               
               <div className="space-y-4 text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                 <p>
-                  With over <strong className="text-black dark:text-white">6 years of professional experience</strong> in software development, 
-                  I specialize in building robust, scalable applications that solve real-world problems.
+                  With over <strong className="text-black dark:text-white">7 years of professional experience</strong> in software development,
+                  I have built and shipped production systems across <strong className="text-black dark:text-white">government, energy, fintech, and real estate sectors</strong> —
+                  from a national immigration portal handling visa applications and payment processing to an energy analytics platform deployed in the UK.
                 </p>
-                
+
                 <p>
-                  My expertise spans across <strong className="text-black dark:text-white">full-stack web development</strong>, 
-                  from creating responsive frontend interfaces to designing powerful backend APIs. 
-                  I have extensive experience with <strong className="text-black dark:text-white">.NET technologies</strong>, 
-                  modern JavaScript frameworks, and database management systems.
+                  My core stack centers on <strong className="text-black dark:text-white">.NET (ASP.NET Core, .NET MAUI)</strong>, <strong className="text-black dark:text-white">Angular</strong>, and <strong className="text-black dark:text-white">Laravel</strong>,
+                  with hands-on experience in payment gateway integrations, background job orchestration with Hangfire,
+                  and cross-platform mobile development for Android and iOS.
+                  I work with Oracle, SQL Server, and MySQL at enterprise scale, and I apply Docker and GitHub Actions for containerized CI/CD pipelines.
                 </p>
-                
+
                 <p>
-                  I&apos;m passionate about clean code, modern development practices, and staying up-to-date 
-                  with the latest technologies. Whether it&apos;s building enterprise-grade web applications, 
-                  mobile apps with Xamarin, or implementing DevOps pipelines, I bring a 
-                  <strong className="text-black dark:text-white"> detail-oriented approach</strong> to every project.
+                  I bring a <strong className="text-black dark:text-white">detail-oriented, ownership-driven approach</strong> to every engagement —
+                  whether leading a development team, mentoring junior developers, or delivering end-to-end as an independent contractor.
+                  I care about clean architecture and systems that hold up in production.
                 </p>
               </div>
             </div>

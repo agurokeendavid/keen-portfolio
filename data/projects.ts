@@ -202,7 +202,7 @@ export const projects: Project[] = [
       "Swagger / OpenAPI",
       "SQL Server",
       "Entity Framework / EF Core",
-      "Middleware Pipeline"
+      "Middleware Pipeline",
     ],
     features: [
       "Energy Dashboard: Provides separate consumption and cost views with company filters, meter-type toggles, and chart-based comparisons.",
@@ -227,6 +227,37 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://enerlytic.co.uk/",
   },
+  {
+    id: "spectacon",
+    title: "Spectacon",
+    shortDescription:
+      "A professional marketing website for Spectacon Percival, a Project Management & Quantity Surveying firm operating across Asia.",
+
+    fullDescription:
+      "Spectacon Percival is a multi-page company website built for a partnership firm of Project Managers and Quantity Surveyors established in 2023. The site presents the firm's six core services — including Quantity Surveying, Construction Project Management, Cost Planning, and Contract Administration — alongside a curated portfolio of 20+ delivered projects across commercial, hospitality, healthcare, and residential sectors in Asia. The design uses a refined teal and sedona color palette with Montserrat and Inter typography to reflect a professional, trust-focused brand identity.",
+    thumbnail: "/projects/spectacon/homepage.png",
+    screenshots: [
+      "/projects/spectacon/homepage.png",
+      "/projects/spectacon/home-about-us.png",
+      "/projects/spectacon/home-selected-projects.png",
+      "/projects/spectacon/experience.png",
+      "/projects/spectacon/experience-service.png",
+      "/projects/spectacon/capability.png",
+    ],
+    techStack: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Google Fonts"],
+    features: [
+      "Sticky navbar with transparent-to-solid scroll transition on the homepage",
+      "Responsive mobile menu with smooth open/close toggle",
+      "Scroll-triggered reveal animations using IntersectionObserver",
+      "Hero section with staggered CSS fade-in entrance animations",
+      "Multi-page layout: Home, Experience, and Capability pages",
+      "Service cards showcasing 6 core construction advisory offerings",
+      "Project experience grid categorized by service type and sector",
+      "Stats bar highlighting key firm metrics (20+ projects, 5+ markets)",
+      "Contact form with submission feedback state",
+      "Fully responsive layout built with utility-first Tailwind CSS",
+    ]
+  }
 ];
 
 // Curated list for hero section — complex/enterprise technologies a recruiter should notice

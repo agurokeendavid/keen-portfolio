@@ -22,8 +22,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.1),transparent)]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-        <div className="min-h-screen flex items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 min-h-screen flex flex-col">
+        <div className="flex-1 flex items-center py-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
             {/* Left Content */}
             <motion.div
@@ -146,16 +146,14 @@ export function HeroSection() {
             </motion.div>
           </div>
         </div>
-      </div>
 
-      {/* Floating Tech Strip */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.4 }}
-        className="absolute bottom-20 left-0 right-0 z-20"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Floating Tech Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="pb-8 sm:pb-12"
+        >
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="flex flex-wrap justify-center items-center gap-4">
               <span className="text-gray-300 text-sm font-medium hidden sm:block">
@@ -177,8 +175,8 @@ export function HeroSection() {
               </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

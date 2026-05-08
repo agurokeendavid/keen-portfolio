@@ -274,32 +274,57 @@ export const heroTechStack = [
   { name: "Laravel", category: "Backend" },
 ];
 
+export interface TechItem {
+  name: string;
+  category: string;
+  tier: "core" | "have-used";
+  proficiency: "Expert" | "Proficient" | "Familiar";
+  yearsExp?: number;
+}
+
 // Technology stack for About section
-export const techStack = [
-  { name: "HTML", category: "Frontend" },
-  { name: "CSS", category: "Frontend" },
-  { name: "SCSS", category: "Frontend" },
-  { name: "JavaScript", category: "Frontend" },
-  { name: "TypeScript", category: "Frontend" },
-  { name: "Bootstrap", category: "Frontend" },
-  { name: "Vue.js", category: "Frontend" },
-  { name: "Angular", category: "Frontend" },
+export const techStack: TechItem[] = [
+  // Frontend — Core
+  { name: "HTML",        category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
+  { name: "CSS",         category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
+  { name: "JavaScript",  category: "Frontend", tier: "core",      proficiency: "Expert",     yearsExp: 7 },
+  { name: "TypeScript",  category: "Frontend", tier: "core",      proficiency: "Familiar",     yearsExp: 3 },
+  { name: "Angular",     category: "Frontend", tier: "core",      proficiency: "Familiar",     yearsExp: 3 },
+  { name: "Bootstrap",   category: "Frontend", tier: "core",      proficiency: "Expert", yearsExp: 7 },
+  { name: "SCSS",        category: "Frontend", tier: "core",      proficiency: "Familiar", yearsExp: 3 },
 
-  { name: "C#", category: "Backend" },
-  { name: "ASP.NET Core", category: "Backend" },
-  { name: "PHP", category: "Backend" },
-  { name: "Laravel", category: "Backend" },
-  { name: "Entity Framework", category: "Backend" },
-  { name: "SignalR", category: "Backend" },
+  // Frontend — Have Used
+  { name: "Vue.js",      category: "Frontend", tier: "have-used", proficiency: "Familiar" },
 
-  { name: "MySQL", category: "Database" },
-  { name: "SQL Server", category: "Database" },
-  { name: "Oracle", category: "Database" },
+  // Backend — Core
+  { name: "C#",              category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 7 },
+  { name: "ASP.NET Core",    category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 7 },
+  { name: "Entity Framework",category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 6 },
+  { name: "Laravel",         category: "Backend", tier: "core", proficiency: "Expert",     yearsExp: 5 },
+  { name: "PHP",             category: "Backend", tier: "core", proficiency: "Expert", yearsExp: 7 },
+  { name: "SignalR",         category: "Backend", tier: "core", proficiency: "Proficient", yearsExp: 3 },
 
-  { name: ".NET MAUI", category: "Mobile" },
-  { name: "Java", category: "Mobile" },
-  { name: "Swift", category: "Mobile" },
+  // Database — Core
+  { name: "MySQL",      category: "Database", tier: "core", proficiency: "Expert", yearsExp: 7 },
+  { name: "SQL Server", category: "Database", tier: "core", proficiency: "Expert", yearsExp: 3 },
+  { name: "Oracle",     category: "Database", tier: "core", proficiency: "Expert", yearsExp: 4 },
 
-  { name: "Docker", category: "DevOps" },
-  { name: "GitHub Actions", category: "DevOps" },
+  // Mobile — Core
+  { name: ".NET MAUI", category: "Mobile", tier: "core",      proficiency: "Proficient", yearsExp: 2 },
+
+  // Mobile — Have Used
+  { name: "Java",  category: "Mobile", tier: "have-used", proficiency: "Familiar" },
+  { name: "Swift", category: "Mobile", tier: "have-used", proficiency: "Familiar" },
+
+  // DevOps — Core
+  { name: "Docker",         category: "DevOps", tier: "core", proficiency: "Proficient", yearsExp: 3 },
+  { name: "GitHub Actions", category: "DevOps", tier: "core", proficiency: "Proficient", yearsExp: 3 },
+
+  // AI Tools — Core
+  { name: "Claude",          category: "AI Tools", tier: "core", proficiency: "Proficient" },
+  { name: "ChatGPT",         category: "AI Tools", tier: "core", proficiency: "Proficient" },
+  { name: "GitHub Copilot",  category: "AI Tools", tier: "core", proficiency: "Proficient" },
+  { name: "Codex",           category: "AI Tools", tier: "core", proficiency: "Familiar"  },
+  { name: "Amazon Q",        category: "AI Tools", tier: "core", proficiency: "Familiar"  },
+  { name: "Junie",           category: "AI Tools", tier: "core", proficiency: "Familiar"  },
 ];

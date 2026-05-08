@@ -2,18 +2,41 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Badge } from "./Badge";
-import { techStack } from "@/data/projects";
+import { techStack, TechItem } from "@/data/projects";
+
+type Proficiency = TechItem["proficiency"];
+
+const PROFICIENCY_FILLED: Record<Proficiency, number> = {
+  Expert: 3,
+  Proficient: 2,
+  Familiar: 1,
+};
+
+function ProficiencyDots({ level }: { level: Proficiency }) {
+  const filled = PROFICIENCY_FILLED[level];
+  return (
+    <div className="flex gap-0.5 items-center">
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          className={`w-1.5 h-1.5 rounded-full ${
+            i <= filled ? "bg-black dark:bg-white" : "bg-gray-200 dark:bg-gray-700"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function AboutSection() {
-  // Group technologies by category
-  const groupedTech = techStack.reduce((acc, tech) => {
-    if (!acc[tech.category]) {
-      acc[tech.category] = [];
-    }
+  const coreTech = techStack.filter((t) => t.tier === "core");
+  const haveUsedTech = techStack.filter((t) => t.tier === "have-used");
+
+  const groupedCore = coreTech.reduce((acc, tech) => {
+    if (!acc[tech.category]) acc[tech.category] = [];
     acc[tech.category].push(tech);
     return acc;
-  }, {} as Record<string, typeof techStack>);
+  }, {} as Record<string, TechItem[]>);
 
   return (
     <section id="about" className="py-20 bg-white dark:bg-black">
@@ -107,49 +130,83 @@ export function AboutSection() {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-black dark:text-white text-center mb-12">
+          <h3 className="text-2xl md:text-3xl font-bold text-black dark:text-white text-center mb-4">
             Technology Stack
           </h3>
-          
-          <div className="space-y-8">
-            {Object.entries(groupedTech).map(([category, techs], categoryIndex) => (
+
+          {/* Proficiency legend */}
+          <div className="flex justify-center gap-6 mb-12">
+            {(["Expert", "Proficient", "Familiar"] as Proficiency[]).map((level) => (
+              <div key={level} className="flex items-center gap-2">
+                <ProficiencyDots level={level} />
+                <span className="text-xs text-gray-500 dark:text-gray-400">{level}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Core Expertise */}
+          <div className="space-y-8 mb-12">
+            <h4 className="text-lg font-semibold text-black dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">
+              Core Expertise
+            </h4>
+
+            {Object.entries(groupedCore).map(([category, techs], categoryIndex) => (
               <motion.div
                 key={category}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 + categoryIndex * 0.2 }}
+                transition={{ duration: 0.6, delay: 0.8 + categoryIndex * 0.15 }}
                 viewport={{ once: true }}
-                className="space-y-4"
+                className="space-y-3"
               >
-                <h4 className="text-lg font-semibold text-black dark:text-white">
+                <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-widest">
                   {category}
-                </h4>
-                
-                <div className="flex flex-wrap gap-3">
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {techs.map((tech, techIndex) => (
                     <motion.div
                       key={tech.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        duration: 0.4, 
-                        delay: 1.0 + categoryIndex * 0.2 + techIndex * 0.1 
-                      }}
+                      transition={{ duration: 0.35, delay: 0.9 + categoryIndex * 0.15 + techIndex * 0.05 }}
                       viewport={{ once: true }}
-                      whileHover={{ scale: 1.05 }}
-                      className="group"
+                      className="flex items-center justify-between px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors duration-200"
                     >
-                      <Badge 
-                        variant="outline" 
-                        className="bg-white dark:bg-black border-gray-300 dark:border-gray-600 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300 cursor-default px-4 py-2 text-sm font-medium"
-                      >
+                      <span className="text-sm font-medium text-black dark:text-white">
                         {tech.name}
-                      </Badge>
+                      </span>
+                      <div className="flex items-center gap-3">
+                        {tech.yearsExp && (
+                          <span className="text-xs text-gray-400 dark:text-gray-500 tabular-nums">
+                            {tech.yearsExp} yr
+                          </span>
+                        )}
+                        <ProficiencyDots level={tech.proficiency} />
+                      </div>
                     </motion.div>
                   ))}
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Have Used */}
+          <div>
+            <h4 className="text-lg font-semibold text-black dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2 mb-6">
+              Also Have Experience With
+            </h4>
+            <div className="flex flex-wrap gap-3">
+              {haveUsedTech.map((tech) => (
+                <div
+                  key={tech.name}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700"
+                >
+                  <ProficiencyDots level={tech.proficiency} />
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{tech.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

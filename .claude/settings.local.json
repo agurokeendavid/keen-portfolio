@@ -5,7 +5,8 @@
       "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"e:\\\\Users\\\\agurokeendavid\\\\Documents\\\\Programming\\\\next_js\\\\keen-portfolio\\\\public\\\\resume.pdf\"\\); $text = [System.Text.Encoding]::Latin1.GetString\\($bytes\\); $matches = [regex]::Matches\\($text, '[\\\\x20-\\\\x7E]{4,}'\\); $readable = \\($matches | ForEach-Object { $_.Value }\\) -join \"`n\"; $readable | Select-String -Pattern \"\\(experience|developer|engineer|company|work|job|position|university|degree|skill|project|certif|20[0-9][0-9]|bureau|immigr|software|full.stack|junior|senior|mid|lead\\)\" -AllMatches | Select-Object -First 80 | ForEach-Object { $_.Line })",
       "Bash(npm list *)",
       "Bash(npm install *)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

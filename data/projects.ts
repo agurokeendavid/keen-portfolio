@@ -265,7 +265,7 @@ export const projects: Project[] = [
       "A mobile quiz app for practicing and tracking understanding of foundational discrete mathematics topics through structured, topic-based assessments.",
     fullDescription:
       "OFormAT is a mobile learning application designed to help students strengthen their understanding of core discrete mathematics concepts through interactive quizzes. The app provides a guided quiz experience from login to question answering, instant scoring, and a dedicated result page for feedback. It also includes quiz history so learners can review past attempts and monitor progress over time. Built for real-world use and published on Google Play, OFormAT focuses on simple navigation, reliable performance, and an education-first user experience.",
-    thumbnail: "/projects/oformat/splashscreen.png",
+    thumbnail: "/projects/oformat/login.png",
     screenshots: [
       "/projects/oformat/splashscreen.png",
       "/projects/oformat/login.png",

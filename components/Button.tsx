@@ -28,16 +28,27 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants> {
+  href?: string;
+  download?: string | boolean;
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, href, download, children, ...props }, ref) => {
+    const classes = cn(buttonVariants({ variant, size, className }));
+
+    if (href) {
+      return (
+        <a href={href} download={download} className={classes}>
+          {children}
+        </a>
+      );
+    }
+
     return (
-      <button
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <button className={classes} ref={ref} {...props}>
+        {children}
+      </button>
     );
   }
 );

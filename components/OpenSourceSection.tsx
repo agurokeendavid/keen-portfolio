@@ -17,18 +17,6 @@ function GitHubIcon({ className }: { className?: string }) {
 const GITHUB_USERNAME = "agurokeendavid";
 const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
 
-// Deterministic Tailwind opacity classes — avoids SSR/client float mismatch
-const OPACITY_CLASSES = [
-  "opacity-10", "opacity-20", "opacity-30",
-  "opacity-40", "opacity-50", "opacity-60", "opacity-70",
-] as const;
-
-const GRAPH_CELLS = Array.from({ length: 182 }, (_, i) => {
-  const v = Math.sin(i * 127.1 + 311.7) * 43758.5453;
-  const frac = v - Math.floor(v);
-  return OPACITY_CLASSES[Math.floor(frac * OPACITY_CLASSES.length)];
-});
-
 interface GitHubRepo {
   id: number;
   name: string;
@@ -99,21 +87,21 @@ function StatCard({
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-5 text-center"
+      className="rounded-xl border border-line bg-paper p-5 text-center"
     >
-      <Icon className="w-5 h-5 mx-auto mb-2 text-gray-400 dark:text-gray-600" />
+      <Icon className="w-5 h-5 mx-auto mb-2 text-slate" />
       {loading ? (
-        <div className="h-8 w-12 mx-auto rounded bg-gray-200 dark:bg-gray-800 animate-pulse mb-1" />
+        <div className="h-8 w-12 mx-auto rounded bg-line animate-pulse mb-1" />
       ) : (
-        <p className="text-2xl font-bold text-black dark:text-white">{value}</p>
+        <p className="font-display text-2xl font-bold text-ink">{value}</p>
       )}
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{label}</p>
+      <p className="font-mono text-xs text-slate mt-1">{label}</p>
     </motion.div>
   );
 }
 
 function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
-  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#6b7280") : "#6b7280";
+  const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#6b7078") : "#6b7078";
   return (
     <motion.a
       href={repo.html_url}
@@ -124,20 +112,20 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
       transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
       viewport={{ once: true }}
       whileHover={{ y: -2 }}
-      className="block rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4 hover:border-gray-400 dark:hover:border-gray-600 transition-colors"
+      className="block rounded-xl border border-line bg-paper p-4 hover:border-signal transition-colors"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <p className="font-semibold text-black dark:text-white text-sm truncate">{repo.name}</p>
-        <ExternalLink className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
+        <p className="font-semibold text-ink text-sm truncate">{repo.name}</p>
+        <ExternalLink className="w-3.5 h-3.5 text-slate shrink-0 mt-0.5" />
       </div>
 
       {repo.description && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 mb-3">
+        <p className="text-xs text-slate leading-relaxed line-clamp-2 mb-3">
           {repo.description}
         </p>
       )}
 
-      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex items-center gap-4 font-mono text-xs text-slate">
         {repo.language && (
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color }} />
@@ -185,7 +173,7 @@ export function OpenSourceSection() {
   ];
 
   return (
-    <section id="open-source" className="py-20 bg-white dark:bg-black">
+    <section id="open-source" className="py-20 bg-paper-raised">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -194,11 +182,11 @@ export function OpenSourceSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-6">
+          <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Public activity</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-ink mb-6 tracking-tight">
             GitHub &amp; Open Source
           </h2>
-          <div className="w-20 h-1 bg-black dark:bg-white mx-auto" />
-          <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-slate max-w-2xl mx-auto">
             My public work, open source contributions, and community activity.
           </p>
         </motion.div>
@@ -214,20 +202,20 @@ export function OpenSourceSection() {
             className="space-y-6"
           >
             {/* Profile card */}
-            <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-6 flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-black dark:bg-white flex items-center justify-center shrink-0">
-                <GitHubIcon className="w-8 h-8 text-white dark:text-black" />
+            <div className="rounded-2xl border border-line bg-paper p-6 flex items-center gap-5">
+              <div className="w-16 h-16 rounded-full bg-ink flex items-center justify-center shrink-0">
+                <GitHubIcon className="w-8 h-8 text-paper" />
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-black dark:text-white text-lg">@{GITHUB_USERNAME}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">
+                <p className="font-bold text-ink text-lg">@{GITHUB_USERNAME}</p>
+                <p className="text-slate text-sm mt-0.5">
                   Full-Stack Developer · Philippines
                 </p>
                 <a
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-2 text-sm font-medium text-black dark:text-white hover:underline"
+                  className="inline-flex items-center gap-1.5 mt-2 text-sm font-medium text-signal hover:underline"
                 >
                   View GitHub Profile
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -252,10 +240,10 @@ export function OpenSourceSection() {
             {/* Top repositories */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <p className="text-sm font-semibold text-slate">
                   Top Repositories
                 </p>
-                {loading && <Loader2 className="w-3.5 h-3.5 animate-spin text-gray-400" />}
+                {loading && <Loader2 className="w-3.5 h-3.5 animate-spin text-slate" />}
               </div>
 
               {loading ? (
@@ -263,11 +251,11 @@ export function OpenSourceSection() {
                   {[0, 1, 2].map((i) => (
                     <div
                       key={i}
-                      className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4 space-y-2 animate-pulse"
+                      className="rounded-xl border border-line bg-paper p-4 space-y-2 animate-pulse"
                     >
-                      <div className="h-4 w-40 rounded bg-gray-200 dark:bg-gray-800" />
-                      <div className="h-3 w-full rounded bg-gray-200 dark:bg-gray-800" />
-                      <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-800" />
+                      <div className="h-4 w-40 rounded bg-line" />
+                      <div className="h-3 w-full rounded bg-line" />
+                      <div className="h-3 w-24 rounded bg-line" />
                     </div>
                   ))}
                 </div>
@@ -278,7 +266,7 @@ export function OpenSourceSection() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 dark:text-gray-600">
+                <p className="text-sm text-slate">
                   No public repositories found.
                 </p>
               )}
@@ -293,57 +281,56 @@ export function OpenSourceSection() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            {/* Contribution graph */}
-            <div className="rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 p-6">
-              <div className="flex items-center justify-between mb-5">
-                <div>
-                  <p className="text-base font-semibold text-black dark:text-white">
-                    Contribution Graph
-                  </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">
-                    {stats?.contributions
-                      ? `${stats.contributions.total.toLocaleString()} contributions (public + private) · last year`
-                      : "Last 6 months · preview"}
-                  </p>
+            {/* Contribution graph — only rendered with real data, never fabricated */}
+            {!loading && stats?.contributions ? (
+              <div className="rounded-2xl border border-line bg-paper p-6">
+                <div className="flex items-center justify-between mb-5">
+                  <div>
+                    <p className="text-base font-semibold text-ink">
+                      Contribution Graph
+                    </p>
+                    <p className="font-mono text-xs text-slate mt-0.5">
+                      {stats.contributions.total.toLocaleString()} contributions (public + private) · last year
+                    </p>
+                  </div>
                 </div>
-                {!stats?.contributions && (
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
-                    Needs PAT
-                  </span>
-                )}
-              </div>
 
-              <div className="grid grid-cols-[repeat(26,_1fr)] gap-1">
-                {stats?.contributions
-                  ? flattenLast26Weeks(stats.contributions.weeks).map((day, i) => (
-                      <div
-                        key={i}
-                        title={`${day.date}: ${day.contributionCount}`}
-                        className={`aspect-square rounded-sm bg-gray-300 dark:bg-gray-700 ${getContributionOpacity(day.contributionCount)}`}
-                      />
-                    ))
-                  : GRAPH_CELLS.map((cls, i) => (
-                      <div
-                        key={i}
-                        className={`aspect-square rounded-sm bg-gray-300 dark:bg-gray-700 ${cls}`}
-                      />
-                    ))}
+                <div className="grid grid-cols-[repeat(26,_1fr)] gap-1">
+                  {flattenLast26Weeks(stats.contributions.weeks).map((day, i) => (
+                    <div
+                      key={i}
+                      title={`${day.date}: ${day.contributionCount}`}
+                      className={`aspect-square rounded-sm bg-signal ${getContributionOpacity(day.contributionCount)}`}
+                    />
+                  ))}
+                </div>
               </div>
-
-              {!stats?.contributions && (
-                <p className="text-xs text-center text-gray-400 dark:text-gray-600 mt-4">
-                  Add <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">GITHUB_PAT</code> to{" "}
-                  <code className="font-mono bg-gray-200 dark:bg-gray-800 px-1 rounded">.env.local</code> to unlock live data
+            ) : (
+              <div className="rounded-2xl border border-dashed border-line bg-paper p-6 text-center">
+                <p className="text-sm font-semibold text-ink mb-1">Contribution graph</p>
+                <p className="text-sm text-slate leading-relaxed">
+                  {loading
+                    ? "Loading live contribution data…"
+                    : "Live contribution data isn't available right now — see the full history on GitHub."}
                 </p>
-              )}
-            </div>
+                <a
+                  href={`${GITHUB_URL}?tab=overview`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-signal hover:underline"
+                >
+                  View on GitHub
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            )}
 
             {/* CTA */}
-            <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-6">
-              <h3 className="font-bold text-black dark:text-white mb-2">
+            <div className="rounded-2xl border border-line bg-paper p-6">
+              <h3 className="font-bold text-ink mb-2">
                 Want to collaborate?
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+              <p className="text-sm text-slate mb-4 leading-relaxed">
                 I&apos;m open to contributing to open source projects, reviewing code, or
                 pairing on interesting engineering problems.
               </p>
@@ -351,7 +338,7 @@ export function OpenSourceSection() {
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm font-semibold hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-ink text-paper text-sm font-semibold hover:bg-signal transition-colors"
               >
                 <GitHubIcon className="w-4 h-4" />
                 Follow on GitHub

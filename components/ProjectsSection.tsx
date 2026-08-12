@@ -40,12 +40,12 @@ export function ProjectsSection() {
 
   if (loading) {
     return (
-      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="projects" className="py-20 bg-paper">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-pulse space-y-4">
-              <div className="h-12 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mx-auto" />
-              <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mx-auto" />
+              <div className="h-12 bg-line rounded w-1/3 mx-auto" />
+              <div className="h-4 bg-line rounded w-1/2 mx-auto" />
             </div>
           </div>
         </div>
@@ -53,9 +53,12 @@ export function ProjectsSection() {
     );
   }
 
+  const featuredProjects = projects.filter((p) => p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
+
   return (
     <>
-      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="projects" className="py-20 bg-paper">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
@@ -65,27 +68,48 @@ export function ProjectsSection() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-6">
-              Featured Projects
+            <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Case studies</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-ink mb-6 tracking-tight">
+              Selected Work
             </h2>
-            <div className="w-20 h-1 bg-black dark:bg-white mx-auto mb-6" />
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Here are some of the projects I&apos;ve worked on. Each project represents a unique 
-              challenge and showcases different aspects of modern software development.
+            <p className="text-xl text-slate max-w-3xl mx-auto leading-relaxed">
+              Production systems I&apos;ve designed and shipped — spanning government, energy,
+              fintech, and real estate.
             </p>
           </motion.div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+          {/* Featured Projects Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {featuredProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 index={index}
                 onClick={() => openProjectModal(project)}
+                variant="featured"
               />
             ))}
           </div>
+
+          {/* Other builds */}
+          {otherProjects.length > 0 && (
+            <div className="mt-16">
+              <p className="font-mono text-xs text-slate uppercase tracking-widest mb-6">
+                Other builds
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {otherProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    onClick={() => openProjectModal(project)}
+                    variant="compact"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* View All Projects CTA */}
           <motion.div
@@ -95,7 +119,7 @@ export function ProjectsSection() {
             viewport={{ once: true }}
             className="text-center mt-16"
           >
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-slate mb-6">
               Interested in seeing more of my work?
             </p>
             <motion.button
@@ -107,7 +131,7 @@ export function ProjectsSection() {
                   element.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-md font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper rounded-md font-semibold hover:bg-signal transition-colors"
             >
               Get In Touch
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

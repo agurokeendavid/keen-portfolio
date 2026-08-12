@@ -20,58 +20,50 @@ function ViberIcon({ className }: { className?: string }) {
 }
 
 export function ContactSection() {
-  const contactLinks = [
+  const primaryLinks = [
     {
       name: 'Email',
       icon: Mail,
       href: 'mailto:agurokeendavid@gmail.com',
       label: 'agurokeendavid@gmail.com',
-      description: 'Send me an email'
-    },
-    {
-      name: 'GitHub',
-      icon: Github,
-      href: 'https://github.com/agurokeendavid',
-      label: '@agurokeendavid',
-      description: 'Check out my repositories'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
       href: 'https://linkedin.com/in/agurokeendavid',
       label: 'Keen David Aguro',
-      description: 'Connect with me professionally'
     },
     {
-      name: 'Facebook',
-      icon: Facebook,
-      href: 'https://facebook.com/agurokeendavid',
-      label: 'Keen David Aguro',
-      description: 'Follow me on Facebook'
+      name: 'GitHub',
+      icon: Github,
+      href: 'https://github.com/agurokeendavid',
+      label: '@agurokeendavid',
     },
+  ];
+
+  const secondaryLinks = [
     {
       name: 'WhatsApp',
       icon: WhatsAppIcon,
       href: 'https://wa.me/639614844561',
       label: '+63 961 484 4561',
-      description: 'Message me on WhatsApp'
     },
     {
       name: 'Viber',
       icon: ViberIcon,
       href: 'viber://chat?number=%2B639614844561',
       label: '+63 961 484 4561',
-      description: 'Call or message me on Viber'
-    }
+    },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      href: 'https://facebook.com/agurokeendavid',
+      label: 'Keen David Aguro',
+    },
   ];
 
   return (
-    <section id="contact" className="py-20 bg-black text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)]" />
-      </div>
-
+    <section id="contact" className="py-20 bg-paper relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -81,82 +73,88 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Get in touch</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-ink mb-6 tracking-tight">
             Let&apos;s Work Together
           </h2>
-          <div className="w-20 h-1 bg-white mx-auto mb-6" />
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            I&apos;m always interested in hearing about new projects and opportunities. 
-            Whether you have a question or just want to say hi, feel free to reach out!
+          <p className="text-xl text-slate max-w-3xl mx-auto leading-relaxed">
+            Open to freelance engagements and full-time roles — remote, worldwide.
+            Whether you have a question or a project brief, reach out below.
           </p>
         </motion.div>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-10">
+          {/* Primary contact methods */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="grid sm:grid-cols-3 gap-4"
           >
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                Get In Touch
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                I&apos;m currently available for freelance work and full-time opportunities. 
-                Let&apos;s discuss how we can bring your ideas to life.
-              </p>
-            </div>
-
-            {/* Contact Methods */}
-            <div className="space-y-6">
-              {contactLinks.map((contact, index) => (
-                <motion.a
-                  key={contact.name}
-                  href={contact.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  className="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group"
-                >
-                  <div className="p-3 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors">
-                    <contact.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold">{contact.name}</h4>
-                    <p className="text-gray-300 text-sm">{contact.label}</p>
-                    <p className="text-gray-400 text-xs">{contact.description}</p>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-
-            {/* Additional Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              viewport={{ once: true }}
-              className="p-6 bg-white/5 rounded-lg border border-white/10"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <MapPin className="w-5 h-5" />
-                  <span>Available for remote work worldwide</span>
+            {primaryLinks.map((contact, index) => (
+              <motion.a
+                key={contact.name}
+                href={contact.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -4 }}
+                className="flex flex-col items-center text-center gap-3 p-6 bg-paper-raised rounded-2xl border border-line hover:border-signal transition-all duration-300 group"
+              >
+                <div className="p-3 bg-signal-dim rounded-full group-hover:bg-signal group-hover:text-paper transition-colors text-signal">
+                  <contact.icon className="w-6 h-6" />
                 </div>
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <Phone className="w-5 h-5" />
-                  <span>Response time: Within 24 hours</span>
+                <div>
+                  <h4 className="text-ink font-semibold">{contact.name}</h4>
+                  <p className="text-slate text-sm break-all">{contact.label}</p>
                 </div>
-              </div>
-            </motion.div>
+              </motion.a>
+            ))}
           </motion.div>
 
+          {/* Secondary — messaging channels */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            {secondaryLinks.map((contact) => (
+              <a
+                key={contact.name}
+                href={contact.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line text-slate hover:text-signal hover:border-signal transition-colors text-sm"
+              >
+                <contact.icon className="w-4 h-4" />
+                {contact.name}
+              </a>
+            ))}
+          </motion.div>
+
+          {/* Additional Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row justify-center gap-6 font-mono text-xs text-slate uppercase tracking-wide"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span>Remote / Worldwide</span>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>Response within 24 hours</span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

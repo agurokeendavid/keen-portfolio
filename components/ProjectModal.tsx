@@ -39,24 +39,30 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-6xl">
-      <div className="bg-white text-black dark:bg-black dark:text-white flex flex-col">
+      <div className="bg-paper-raised text-ink flex flex-col">
         {/* Header */}
-        <div className="p-4 sm:p-6 md:p-8 border-b border-gray-200 dark:border-gray-800">
+        <div className="p-4 sm:p-6 md:p-8 border-b border-line">
           <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-6">
             <div className="flex-1 w-full">
+              {project.liveUrl && (
+                <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-live mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-live" />
+                  Live in production
+                </span>
+              )}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4"
+                className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4 tracking-tight"
               >
                 {project.title}
               </motion.h2>
-              
+
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed"
+                className="text-slate text-sm sm:text-base md:text-lg leading-relaxed"
               >
                 {project.shortDescription}
               </motion.p>
@@ -72,19 +78,19 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               {project.liveUrl && (
                 <Button
                   onClick={() => window.open(project.liveUrl, '_blank')}
-                  className="bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 flex items-center justify-center gap-2 text-sm sm:text-base flex-1 sm:flex-initial px-3 py-2"
+                  className="flex items-center justify-center gap-2 text-sm sm:text-base flex-1 sm:flex-initial px-3 py-2"
                 >
                   <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="hidden xs:inline">Live Demo</span>
                   <span className="xs:hidden">Demo</span>
                 </Button>
               )}
-              
+
               {project.githubUrl && (
                 <Button
                   onClick={() => window.open(project.githubUrl, '_blank')}
                   variant="outline"
-                  className="border-black text-black hover:bg-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black flex items-center justify-center gap-2 text-sm sm:text-base flex-1 sm:flex-initial px-3 py-2"
+                  className="flex items-center justify-center gap-2 text-sm sm:text-base flex-1 sm:flex-initial px-3 py-2"
                 >
                   <Github className="w-3 h-3 sm:w-4 sm:h-4" />
                   Code
@@ -105,9 +111,9 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               className="space-y-4 sm:space-y-6"
             >
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Project Screenshots</h3>
-              
+
               {/* Main Image */}
-              <div className="relative aspect-video bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 group cursor-pointer" onClick={() => setIsFullscreen(true)}>
+              <div className="relative aspect-video bg-signal-dim rounded-lg overflow-hidden border border-line group cursor-pointer" onClick={() => setIsFullscreen(true)}>
                 <Image
                   src={project.screenshots[currentImageIndex]}
                   alt={`${project.title} screenshot ${currentImageIndex + 1}`}
@@ -172,8 +178,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                       onClick={() => goToImage(index)}
                       className={`relative w-16 h-12 sm:w-20 sm:h-14 rounded border-2 overflow-hidden transition-all shrink-0 ${
                         index === currentImageIndex
-                          ? 'border-black dark:border-white'
-                          : 'border-gray-300 dark:border-gray-600 hover:border-gray-500 dark:hover:border-gray-400'
+                          ? 'border-signal'
+                          : 'border-line hover:border-slate'
                       }`}
                     >
                       <Image
@@ -202,7 +208,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
             >
               <div>
                 <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Project Details</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg">
+                <p className="text-slate leading-relaxed text-sm sm:text-base md:text-lg">
                   {project.fullDescription}
                 </p>
               </div>
@@ -217,12 +223,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.5 + index * 0.05 }}
                     >
-                      <Badge 
-                        variant="outline" 
-                        className="border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
-                      >
-                        {tech}
-                      </Badge>
+                      <Badge variant="outline">{tech}</Badge>
                     </motion.div>
                   ))}
                 </div>
@@ -231,11 +232,11 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               {/* Features/Highlights */}
               {project.features && project.features.length > 0 && (
                 <div>
-                  <h4 className="text-base sm:text-lg md:text-xl font-bold mb-3 sm:mb-4">Key Features</h4>
-                  <div className="space-y-2 sm:space-y-3 text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+                  <h4 className="text-base sm:text-lg md:text-xl font-bold mb-3 sm:mb-4">Key Highlights</h4>
+                  <div className="space-y-2 sm:space-y-3 text-slate text-sm sm:text-base">
                     {project.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-2 sm:gap-3">
-                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black dark:bg-white rounded-full mt-1.5 sm:mt-2 shrink-0" />
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-signal rounded-full mt-1.5 sm:mt-2 shrink-0" />
                         <p>{feature}</p>
                       </div>
                     ))}

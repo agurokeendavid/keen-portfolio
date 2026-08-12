@@ -6,30 +6,52 @@
   color-scheme: light dark;
 }
 
-/* Custom CSS Variables for Dark/Light Mode */
+/*
+  Design system: "systems status" — a precision, engineering-status aesthetic.
+  Paper/ink neutrals carry the page; signal (blue) is the interactive accent;
+  live (green) is reserved for literal status signals (available now, production/live).
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
+  --paper: #fafaf8;
+  --paper-raised: #ffffff;
+  --ink: #14161a;
+  --slate: #6b7078;
+  --line: #e5e4e1;
+  --signal: #3454d1;
+  --signal-dim: #eef1fc;
+  --live: #159957;
+  --live-dim: #e7f6ee;
+}
+
+.dark {
+  --paper: #0b0c0e;
+  --paper-raised: #131417;
+  --ink: #f5f5f3;
+  --slate: #9ba0a8;
+  --line: #26282c;
+  --signal: #7f96ff;
+  --signal-dim: #1b2340;
+  --live: #34d399;
+  --live-dim: #0f2a20;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-}
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-line: var(--line);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+  --color-live: var(--live);
+  --color-live-dim: var(--live-dim);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
 
-/* Dark mode class override */
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-sans);
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 /* Base styles */
@@ -42,8 +64,8 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
   line-height: 1.6;
   margin: 0;
@@ -65,28 +87,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Animation for smooth transitions */
@@ -94,4 +116,15 @@ body {
   transition-property: color, background-color, border-color;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

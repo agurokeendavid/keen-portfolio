@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { AboutSection } from "@/components/AboutSection";
+import { SkillsStrip } from "@/components/SkillsStrip";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
@@ -12,7 +12,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <AboutSection />
+      <SkillsStrip />
       <ExperienceSection />
       <ProjectsSection />
       <OpenSourceSection />

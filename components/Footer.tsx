@@ -11,7 +11,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300 relative">
+    <footer className="bg-paper-raised text-slate border-t border-line relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Left - Name and tagline */}
@@ -22,8 +22,8 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <h3 className="text-xl font-bold text-white mb-2">Keen David Aguro</h3>
-            <p className="text-gray-400">Software Developer</p>
+            <h3 className="font-display text-xl font-bold text-ink mb-2">Keen David Aguro</h3>
+            <p className="text-slate">Software Developer</p>
           </motion.div>
 
           {/* Center - Copyright */}
@@ -35,8 +35,8 @@ export function Footer() {
             className="text-center"
           >
             <p className="flex items-center justify-center gap-2">
-              © {currentYear} Made with 
-              <Heart className="w-4 h-4 text-red-500 fill-current" />
+              © {currentYear} Made with
+              <Heart className="w-4 h-4 text-live fill-current" />
               by Keen David Aguro
             </p>
           </motion.div>
@@ -53,7 +53,7 @@ export function Footer() {
               onClick={scrollToTop}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 text-slate hover:text-signal transition-colors"
             >
               <ArrowUp className="w-4 h-4" />
               Back to Top
@@ -62,15 +62,15 @@ export function Footer() {
         </div>
 
         {/* Bottom border */}
-        <div className="mt-8 pt-8 border-t border-gray-800">
+        <div className="mt-8 pt-8 border-t border-line">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="text-center text-gray-500 text-sm"
+            className="text-center font-mono text-xs text-slate"
           >
-            Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion
+            NEXT.JS · TYPESCRIPT · TAILWIND CSS · FRAMER MOTION
           </motion.p>
         </div>
       </div>

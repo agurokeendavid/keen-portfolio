@@ -65,6 +65,38 @@ monitoring dashboards for government/energy clients).
   WhatsApp/Viber/Facebook are secondary (small pill row). Keep that hierarchy if
   adding new channels.
 
+## Blog
+
+Personal blog (single author — not a forum/comments system), Markdown files in the
+repo, no database or admin login.
+
+- `content/blog/*.md` — one file per post; filename is the slug (`/blog/<filename>`).
+  Frontmatter: `title`, `description`, `date` (ISO string), `tags` (string[]),
+  `published` (boolean — `false` hides the post from both the index and its own URL;
+  omit or set `true` to publish).
+- `lib/blog.ts` — `getAllPosts()` (published only, sorted newest first, no body),
+  `getPostBySlug(slug)` (full post incl. body, `null` if missing/unpublished),
+  `getAllSlugs()` (for `generateStaticParams`). All file reads are server-only
+  (`node:fs`) — only call these from Server Components.
+- `app/blog/page.tsx` and `app/blog/[slug]/page.tsx` — statically generated at build
+  time. Post bodies render via `react-markdown` + `remark-gfm` (GFM tables/strikethrough)
+  + `rehype-highlight` (code syntax highlighting), styled with the hand-written
+  `.blog-prose` rules in `app/globals.css` (mapped to the design tokens) — not a
+  Tailwind Typography plugin, to keep the "systems status" aesthetic consistent with
+  the rest of the site.
+- `components/BlogTeaserSection.tsx` — homepage section showing the latest 3 posts,
+  fed by `getAllPosts()` called in `app/page.tsx` (Server Component) and passed down as
+  props, since the teaser itself needs `"use client"` for the scroll animations.
+- `Navbar.tsx` now mixes same-page anchors (`/#section`) and real routes (`/blog`).
+  `handleNavClick` intercepts and smooth-scrolls only when already on `/`; otherwise
+  it lets `next/link` navigate normally. Keep this pattern if more non-anchor routes
+  are added.
+- Content convention: this is the user's own first-person career writing (e.g.
+  balancing a government senior-developer role with freelance work) — never draft or
+  expand actual post content on their behalf beyond a clearly-labeled structural
+  template (see `content/blog/example-post.md`, `published: false`). Don't invent
+  specifics about their employer or work history.
+
 ## Dependencies
 
 Keep patch/minor versions current with `npm update` + `npm audit fix`. Treat major

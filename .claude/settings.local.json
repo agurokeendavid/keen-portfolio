@@ -40,7 +40,16 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000)",
       "Bash(curl -s http://localhost:3000/api/github -o api.json)",
       "Bash(taskkill //F //PID 11280)",
-      "Bash(grep -o \"theme-init.\\\\{0,150\\\\}\")"
+      "Bash(grep -o \"theme-init.\\\\{0,150\\\\}\")",
+      "Bash(taskkill //F //PID 37436)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/blog)",
+      "Bash(curl -s http://localhost:3000/blog)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/blog/example-post)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/ -o /tmp_check.html)",
+      "Bash(grep -o 'href=\"/blog\"' /tmp_check.html)",
+      "Bash(grep -c \"Blog\" /tmp_check.html)",
+      "Bash(rm -f /tmp_check.html)"
     ]
   }
 }

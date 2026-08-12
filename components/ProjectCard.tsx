@@ -44,19 +44,19 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
       transition={{ duration: 0.6, delay: index * 0.08 }}
       viewport={{ once: true }}
       whileHover={{ y: -4 }}
-      className="group cursor-pointer"
+      className={`group cursor-pointer ${isCompact ? "" : "h-full"}`}
       onClick={onClick}
     >
       <div
         className={`bg-paper-raised rounded-xl overflow-hidden border border-line hover:border-signal transition-all duration-300 shadow-sm hover:shadow-lg ${
-          isCompact ? "flex items-center gap-4 p-3" : ""
+          isCompact ? "flex flex-col sm:flex-row sm:items-center gap-4 p-3" : "h-full flex flex-col"
         }`}
       >
         {/* Project Image */}
         <div
           className={
             isCompact
-              ? "relative w-24 h-20 sm:w-28 sm:h-24 shrink-0 overflow-hidden rounded-lg bg-signal-dim"
+              ? "relative w-full h-36 sm:w-28 sm:h-24 shrink-0 overflow-hidden rounded-lg bg-signal-dim"
               : "relative h-48 md:h-56 overflow-hidden bg-signal-dim"
           }
         >
@@ -64,7 +64,7 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
             src={project.thumbnail}
             alt={project.title}
             fill
-            sizes={isCompact ? "112px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+            sizes={isCompact ? "(max-width: 639px) 100vw, 112px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
@@ -108,13 +108,13 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
         </div>
 
         {/* Project Content */}
-        <div className={isCompact ? "min-w-0 flex-1 space-y-1" : "p-6 space-y-4"}>
+        <div className={isCompact ? "min-w-0 flex-1 space-y-1 px-1 pb-1 sm:px-0 sm:pb-0" : "p-6 space-y-4 flex-1 flex flex-col"}>
           <div className={isCompact ? "space-y-0.5" : "space-y-2"}>
             <StatusEyebrow project={project} />
             <h3
               className={
                 isCompact
-                  ? "font-display font-bold text-ink truncate"
+                  ? "font-display font-bold text-ink line-clamp-1"
                   : "font-display text-xl md:text-2xl font-bold text-ink group-hover:text-signal transition-colors"
               }
             >
@@ -124,7 +124,7 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
             <p
               className={
                 isCompact
-                  ? "text-sm text-slate truncate"
+                  ? "text-sm text-slate line-clamp-2"
                   : "text-slate line-clamp-3 leading-relaxed"
               }
             >
@@ -148,7 +148,7 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
           )}
 
           {!isCompact && (
-            <div className="pt-2">
+            <div className="pt-2 mt-auto">
               <span className="text-sm font-medium text-slate group-hover:text-signal transition-colors">
                 View case study →
               </span>

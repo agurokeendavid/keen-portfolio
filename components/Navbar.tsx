@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Moon, Sun, Menu, X, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -12,6 +14,15 @@ const getPreferredDarkMode = () => {
   return localStorage.getItem("theme") === "dark";
 };
 
+const navLinks = [
+  { name: "Home", href: "/#home" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Open Source", href: "/#open-source" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/#contact" },
+];
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(getPreferredDarkMode);
@@ -21,6 +32,7 @@ export function Navbar() {
     () => false
   );
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,20 +58,16 @@ export function Navbar() {
     }
   };
 
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Open Source", href: "#open-source" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
+  // On the home page, in-page anchors (/#section) smooth-scroll instead of doing a
+  // full navigation. From any other page (e.g. /blog), the Link just navigates to
+  // "/" and the browser jumps to the anchor on load.
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === "/" && href.startsWith("/#")) {
+      e.preventDefault();
+      const element = document.querySelector(href.slice(1));
+      element?.scrollIntoView({ behavior: "smooth" });
     }
+    setIsOpen(false);
   };
 
   if (!mounted) {
@@ -95,24 +103,28 @@ export function Navbar() {
             transition={{ delay: 0.1 }}
             className="shrink-0"
           >
-            <h1 className="font-display text-xl font-bold text-ink">
+            <Link href="/#home" onClick={(e) => handleNavClick(e, "/#home")} className="font-display text-xl font-bold text-ink">
               Keen David Aguro
-            </h1>
+            </Link>
           </motion.div>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navLinks.map((link, index) => (
-                <motion.button
+                <motion.div
                   key={link.name}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * (index + 2) }}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-slate hover:text-signal px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
-                  {link.name}
-                </motion.button>
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-slate hover:text-signal px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
               <motion.a
                 href="/resume.pdf"
@@ -160,13 +172,14 @@ export function Navbar() {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => scrollToSection(link.href)}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-slate hover:text-signal block px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors"
               >
                 {link.name}
-              </button>
+              </Link>
             ))}
             <a
               href="/resume.pdf"

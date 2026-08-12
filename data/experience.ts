@@ -74,7 +74,7 @@ export const experiences: Experience[] = [
     company: "Bureau of Immigration – Republic of the Philippines",
     companyUrl: "https://immigration.gov.ph",
     location: "Manila, Philippines",
-    period: "Oct 2019 – Dec 2022",
+    period: "Oct 2019 – March 2022",
     current: false,
     description: [
       "Developed enterprise immigration processing systems handling visa, travel document, and clearance workflows.",

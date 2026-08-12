@@ -49,7 +49,8 @@
       "Bash(curl -s http://localhost:3000/ -o /tmp_check.html)",
       "Bash(grep -o 'href=\"/blog\"' /tmp_check.html)",
       "Bash(grep -c \"Blog\" /tmp_check.html)",
-      "Bash(rm -f /tmp_check.html)"
+      "Bash(rm -f /tmp_check.html)",
+      "Bash(taskkill //F //PID 42968)"
     ]
   }
 }

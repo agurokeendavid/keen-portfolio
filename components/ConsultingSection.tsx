@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { services, formatPeso } from "@/data/services";
+import { services, alsoAvailable, formatPeso } from "@/data/services";
 
 function scrollToContact() {
   document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
@@ -89,6 +89,29 @@ export function ConsultingSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-14 text-center"
+        >
+          <p className="font-mono text-xs text-slate uppercase tracking-widest mb-2">Also available</p>
+          <p className="text-sm text-slate mb-5">
+            These usually sit inside a project above, but I take them on their own too.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {alsoAvailable.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center rounded-full border border-line px-4 py-2 text-sm text-slate"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}

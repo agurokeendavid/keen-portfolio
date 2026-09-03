@@ -69,6 +69,15 @@ export const services: Service[] = [
   },
 ];
 
+// Focused capabilities that usually sit inside a project above, but can be scoped
+// on their own. Billed at the relevant tier's hourly rate.
+export const alsoAvailable: string[] = [
+  "Payment gateway and third-party API integration",
+  "Legacy system maintenance and safe modernization",
+  "CI/CD and deployment setup (Docker, GitHub Actions, IIS)",
+  "Monitoring and analytics dashboards",
+];
+
 /** Formats a whole-peso amount as "PHP 12,000" using the ₱ symbol. */
 export function formatPeso(amount: number): string {
   return `₱${amount.toLocaleString("en-PH")}`;

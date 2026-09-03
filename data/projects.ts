@@ -331,6 +331,20 @@ export const techStack: TechItem[] = [
     proficiency: "Familiar",
     yearsExp: 3,
   },
+  {
+    name: "React",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 1,
+  },
+  {
+    name: "Next.js",
+    category: "Frontend",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 1,
+  },
 
   // Frontend — Have Used
   {
@@ -414,6 +428,13 @@ export const techStack: TechItem[] = [
     tier: "core",
     proficiency: "Proficient",
     yearsExp: 2,
+  },
+  {
+    name: "React Native",
+    category: "Mobile",
+    tier: "core",
+    proficiency: "Familiar",
+    yearsExp: 1,
   },
 
   // Mobile — Have Used

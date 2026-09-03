@@ -18,9 +18,9 @@ export const projects: Project[] = [
     id: "study-connect",
     title: "Study Connect",
     shortDescription:
-      "A comprehensive ASP.NET Core MVC web application designed to facilitate collaborative learning through study groups. StudyConnect enables students and learners to create, join, and manage study groups with real-time messaging, resource sharing, and meeting coordination capabilities.",
+      "A .NET 9 MVC app for running student study groups — real-time chat, shared resources, and scheduling, with private groups gated behind invite links that expire.",
     fullDescription:
-      "Study Connect is a comprehensive ASP.NET Core MVC web application designed to facilitate collaborative learning through study groups. The platform enables students and learners to create, join, and manage study groups with real-time messaging, resource sharing, and meeting coordination capabilities. Built with modern web technologies, it features role-based access control, subscription management, and a robust invitation system for private groups. The application showcases enterprise-level features including audit logging, feedback systems, and comprehensive user profile management.",
+      "I built Study Connect for the parts of a study group that normally sprawl across group chats and shared drives. A member spins up a group and runs it: real-time group and direct messaging over SignalR, posted resources, and meeting times in one place. Private groups use invite links that expire, and every join, role change, and removal lands in an audit trail. Access runs across three roles — admin, moderator, and member — and premium features sit behind tiered subscription plans. There's also a feedback system and full user-profile management. MySQL and Entity Framework underneath, DevExtreme on the front end, and Docker plus GitHub Actions to ship it.",
     thumbnail: "/projects/study_connect/dashboard.png",
     screenshots: [
       "/projects/study_connect/home.png",
@@ -53,9 +53,9 @@ export const projects: Project[] = [
     id: "federalforecastingapp",
     title: "Federal Forecasting App",
     shortDescription:
-      "A full-stack federal procurement and business networking platform that helps users discover opportunities, apply advanced filters, export datasets, and collaborate through social and communication features.",
+      "A Laravel platform for federal and state contracting intelligence — opportunity search with NAICS and agency filters, dataset exports, and a business-networking layer, with web and native mobile clients.",
     fullDescription:
-      "Federal Forecasting App is a Laravel-based web and API platform built for government-contracting intelligence and community engagement. It combines federal and state opportunity discovery with NAICS, organization, department, state, and year-based filtering, plus export workflows for analysis and reporting. The system includes multi-role administration (admin and sub-admin), article and video content modules, a business directory, support ticketing, and push notifications. It also supports mobile clients through secure API authentication and includes cross-platform subscription handling for web, Android, and iOS billing workflows.",
+      "Federal Forecasting App helps people working government contracts find and track opportunities. Users search federal and state listings, filter by NAICS code, organization, department, state, and year, and export the results as CSV or XLSX for their own analysis. Around that sits a community layer: a business directory, article and video modules, groups, in-app messaging, and support ticketing, with admins and sub-admins managing content and users. The Laravel app also exposes a Passport-secured API that powers the Android and iOS clients, and subscriptions are handled across all three billing systems — Stripe for web, Google Play Billing, and Apple receipt validation. Push notifications run through Firebase Cloud Messaging.",
     thumbnail: "/projects/federalforecastingapp/homepage.png",
     screenshots: [
       "/projects/federalforecastingapp/homepage.png",
@@ -99,9 +99,9 @@ export const projects: Project[] = [
     id: "bi-eservices",
     title: "BI eServices",
     shortDescription:
-      "A multi-module digital immigration services platform for the Bureau of Immigration Philippines, built with ASP.NET Core MVC and Oracle, enabling end-to-end online applications, payments, compliance processing, and verification workflows.",
+      "The Philippine Bureau of Immigration's public portal — visa applications, extensions, accreditation, compliance, payments, and online verification. Built on ASP.NET Core and Oracle.",
     fullDescription:
-      "BI eServices is an enterprise-grade web platform that digitizes immigration and accreditation services for the Bureau of Immigration Philippines. The system centralizes multiple public-facing and internal workflows such as visa applications, visa extensions, school and liaison accreditation, compliance submissions, payment processing, and online verification. It uses a layered architecture with Domain and Infrastructure projects, combining Dapper-based repositories and Entity Framework Core/Identity for robust data access and authentication flows. The platform includes a dedicated Payment Web API, background job orchestration via Hangfire with Oracle storage, asynchronous email and official receipt processing, and operational tooling such as Swagger, profiling, and structured deployment pipelines. It is containerized for Docker-based deployment and also supports CI/CD automation via GitHub Actions on self-hosted runners.",
+      "BI eServices takes immigration and accreditation transactions that used to be counter-only and puts them online: visa applications and extensions, school and liaison accreditation, compliance submissions, fee payment, and verification. The code splits into Domain and Infrastructure layers — Dapper and Dapper.Oracle for the read-heavy queries, EF Core and ASP.NET Core Identity for authentication. A separate Payment Web API handles transaction processing and official receipts. Hangfire, on Oracle storage, runs the async work: payment confirmation, email, receipt generation, and cleanup. Sessions are re-validated on every request across cookie and JWT auth for both public and internal roles. Swagger, MiniProfiler, and WebOptimizer sit in the toolchain. It's containerized with Docker Compose and deploys through GitHub Actions on self-hosted runners, with an IIS fallback path kept ready for releases that have to go out fast.",
     thumbnail: "/projects/eservices/homepage.png",
     screenshots: [
       "/projects/eservices/homepage.png",
@@ -149,9 +149,9 @@ export const projects: Project[] = [
     id: "enerlytic",
     title: "Enerlytic",
     shortDescription:
-      "Energy analytics platform for monitoring consumption, invoice-backed costs, and interval data across companies, sites, meters, and submeters.",
+      "Energy analytics for multi-site organizations — consumption and cost dashboards for electricity, gas, and water, with costs derived from uploaded invoice data down to half-hourly intervals.",
     fullDescription:
-      "Enerlytic is an Angular-based energy management frontend built around authenticated dashboards, reporting, and operational data workflows. Its main dashboard combines company and account filters, a site map, and separate consumption and cost views for electricity, gas, and water, with cost calculations tied directly to uploaded invoice data. The application includes dedicated management areas for companies, sites, meter points, meter groups, submeters, tenants, and users. A separate upload module handles invoice PDFs as well as half-hour consumption files, with confirmation steps and processed versus unprocessed document states. Reporting goes beyond summary charts with comparison reports, fixed and flexible budget reports, and variance monitoring, including hourly and half-hourly granularity where supported.",
+      "Enerlytic is an Angular front end over a .NET 6 Web API for organizations tracking energy use across a portfolio of sites. The main dashboard filters by company and account, plots sites on a map, and splits consumption from cost for electricity, gas, and water — with cost figures calculated from the actual invoice data users upload rather than estimated. Separate management areas cover companies, sites, meter points, meter groups, submeters, tenants, and users. An upload module ingests invoice PDFs and half-hour consumption files, with a confirmation step and processed/unprocessed states so nothing is double-counted. Reporting goes past summary charts into comparison reports, fixed and flexible budget reports, and variance monitoring, down to half-hourly granularity where the data supports it. The API validates access with claims, so a company only ever sees its own sites.",
     thumbnail: "/projects/enerlytic/homepage.png",
     screenshots: [
       "/projects/enerlytic/homepage.png",
@@ -199,10 +199,10 @@ export const projects: Project[] = [
     id: "spectacon",
     title: "Spectacon",
     shortDescription:
-      "A professional marketing website for Spectacon Percival, a Project Management & Quantity Surveying firm operating across Asia.",
+      "A three-page marketing site for a Project Management and Quantity Surveying firm — services, project portfolio, and capability, hand-built with Tailwind.",
 
     fullDescription:
-      "Spectacon Percival is a multi-page company website built for a partnership firm of Project Managers and Quantity Surveyors established in 2023. The site presents the firm's six core services — including Quantity Surveying, Construction Project Management, Cost Planning, and Contract Administration — alongside a curated portfolio of 20+ delivered projects across commercial, hospitality, healthcare, and residential sectors in Asia. The design uses a refined teal and sedona color palette with Montserrat and Inter typography to reflect a professional, trust-focused brand identity.",
+      "Spectacon Percival is a QS and project-management partnership founded in 2023, working across Asia. I built their site as three pages — Home, Experience, and Capability — covering the firm's six services (Quantity Surveying, Construction Project Management, Cost Planning, and Contract Administration among them) and a portfolio of 20-plus completed projects, filterable by service and by sector: commercial, hospitality, healthcare, residential. It's a static Tailwind build with scroll-triggered reveals via IntersectionObserver, on a teal-and-sedona palette with Montserrat and Inter.",
     thumbnail: "/projects/spectacon/homepage.png",
     screenshots: [
       "/projects/spectacon/homepage.png",
@@ -225,9 +225,9 @@ export const projects: Project[] = [
     id: "oformat",
     title: "OFormAT",
     shortDescription:
-      "A mobile quiz app for practicing and tracking understanding of foundational discrete mathematics topics through structured, topic-based assessments.",
+      "A Xamarin.Forms quiz app for drilling discrete-math topics — topic-based tests, instant scoring, and a local history of past attempts. On Google Play.",
     fullDescription:
-      "OFormAT is a mobile learning application designed to help students strengthen their understanding of core discrete mathematics concepts through interactive quizzes. The app provides a guided quiz experience from login to question answering, instant scoring, and a dedicated result page for feedback. It also includes quiz history so learners can review past attempts and monitor progress over time. Built for real-world use and published on Google Play, OFormAT focuses on simple navigation, reliable performance, and an education-first user experience.",
+      "OFormAT is a small Android app for students revising discrete mathematics. You pick a topic, take the quiz, and get scored immediately, with a result page breaking down the attempt. Past attempts are kept in local SQLite so learners can see whether they're improving over time. It's built with Xamarin.Forms and XAML and is published on Google Play.",
     thumbnail: "/projects/oformat/login.png",
     screenshots: [
       "/projects/oformat/splashscreen.png",

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-09-03T18:13:24.786Z",
+        "reason": "model triage: flagged line is the .blog-prose blockquote rule (border-left 3px), standard blockquote typography and a pre-existing hand-written prose style documented in AGENTS.md — not a decorative card side-tab accent"
+      }
+    ]
+  }
+}

@@ -11,7 +11,8 @@
 Personal portfolio site. Next.js 16 (App Router, Turbopack), React 19, TypeScript,
 Tailwind CSS v4, Framer Motion. Single page (`app/page.tsx`) composed of section
 components rendered in order: Navbar, HeroSection, SkillsStrip, ExperienceSection,
-ProjectsSection, OpenSourceSection, ContactSection, Footer.
+ProjectsSection, OpenSourceSection, BlogTeaserSection, ConsultingSection,
+ContactSection, Footer.
 
 ## Structure
 
@@ -23,6 +24,8 @@ ProjectsSection, OpenSourceSection, ContactSection, Footer.
 - `data/projects.ts` — `Project[]` and `TechItem[]` (techStack). Single source of truth
   for project and skills content.
 - `data/experience.ts` — work history for `ExperienceSection`.
+- `data/services.ts` — `Service[]` (offerings + PHP pricing) plus `formatPeso()`, for
+  `ConsultingSection`.
 - `services/projectService.ts` — thin async wrapper around `data/projects.ts`, written
   to be swapped for a real API later; don't bypass it from components.
 
@@ -64,6 +67,11 @@ monitoring dashboards for government/energy clients).
 - Contact channels are tiered: Email/LinkedIn/GitHub are primary (large cards);
   WhatsApp/Viber/Facebook are secondary (small pill row). Keep that hierarchy if
   adding new channels.
+- `ConsultingSection.tsx` renders the three offerings from `data/services.ts` (IT
+  Consulting, Business Software Development, Thesis & Capstone). Pricing is shown
+  openly as PHP ranges — keep the numbers realistic for a 7+-year .NET/Laravel/Angular
+  developer in the Philippine market, and keep the student tier deliberately
+  discounted. Don't inflate the ranges or turn this into marketing copy.
 
 ## Blog
 

@@ -20,6 +20,7 @@ const navLinks = [
   { name: "Projects", href: "/#projects" },
   { name: "Open Source", href: "/#open-source" },
   { name: "Blog", href: "/blog" },
+  { name: "Consulting", href: "/#consulting" },
   { name: "Contact", href: "/#contact" },
 ];
 

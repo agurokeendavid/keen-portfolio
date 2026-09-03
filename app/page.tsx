@@ -4,6 +4,7 @@ import { SkillsStrip } from "@/components/SkillsStrip";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { OpenSourceSection } from "@/components/OpenSourceSection";
+import { ConsultingSection } from "@/components/ConsultingSection";
 import { BlogTeaserSection } from "@/components/BlogTeaserSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
       <ProjectsSection />
       <OpenSourceSection />
       <BlogTeaserSection posts={latestPosts} />
+      <ConsultingSection />
       <ContactSection />
       <Footer />
     </main>

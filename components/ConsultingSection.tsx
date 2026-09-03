@@ -23,9 +23,9 @@ export function ConsultingSection() {
             Consulting &amp; Services
           </h2>
           <p className="text-lg text-slate max-w-2xl mx-auto leading-relaxed">
-            Freelance engagements for companies, startups, and students — from a one-off
-            architecture review to a full production build. Rates are listed up front so you
-            can budget before we talk.
+            Freelance work for companies, startups, and students. It ranges from a one-off
+            architecture review to a full production build. The rates are here so you can
+            budget before you get in touch.
           </p>
         </motion.div>
 
@@ -97,8 +97,9 @@ export function ConsultingSection() {
           viewport={{ once: true }}
           className="text-center font-mono text-xs text-slate mt-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Rates in Philippine peso. Ranges are a starting point — the final quote depends on
-          scope, timeline, and platform. International clients billed at the equivalent USD rate.
+          Rates are in Philippine peso. The ranges are a starting point. A real quote depends
+          on the scope, the timeline, and the platform. For clients outside the Philippines I
+          bill the equivalent in USD.
         </motion.p>
       </div>
     </section>

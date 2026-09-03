@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, MapPin, Phone, Facebook } from "lucide-react";
+import { Mail, Github, Linkedin, Facebook } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -78,8 +78,8 @@ export function ContactSection() {
             Let&apos;s Work Together
           </h2>
           <p className="text-xl text-slate max-w-3xl mx-auto leading-relaxed">
-            Open to freelance engagements and full-time roles — remote, worldwide.
-            Whether you have a question or a project brief, reach out below.
+            I&apos;m open to freelance work and full-time roles. If you have a project in
+            mind or a question, the links below are the best way to reach me.
           </p>
         </motion.div>
 
@@ -136,24 +136,6 @@ export function ContactSection() {
                 {contact.name}
               </a>
             ))}
-          </motion.div>
-
-          {/* Additional Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row justify-center gap-6 font-mono text-xs text-slate uppercase tracking-wide"
-          >
-            <div className="flex items-center justify-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span>Remote / Worldwide</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Phone className="w-4 h-4" />
-              <span>Response within 24 hours</span>
-            </div>
           </motion.div>
         </div>
       </div>

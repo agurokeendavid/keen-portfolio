@@ -46,19 +46,6 @@ export function HeroSection() {
               className="space-y-8"
             >
               <div className="space-y-5">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-3 py-1.5 font-mono text-xs text-slate"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-live" />
-                  </span>
-                  AVAILABLE — REMOTE / WORLDWIDE
-                </motion.div>
-
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}

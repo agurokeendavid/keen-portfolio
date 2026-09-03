@@ -6,108 +6,54 @@ tags: ["software-development", "government", "dotnet", "career"]
 published: true
 ---
 
-Working as a software developer in government taught me that building a system is only one part of the job.
+Building a system is only part of the job. In government work it is often the smaller part.
 
-For more than five years, I have worked on software and web systems for the **Bureau of Immigration in the Philippines**. During that time, I became involved in developing new applications, maintaining legacy systems, integrating third-party services, troubleshooting production issues, and helping improve the way some government transactions are delivered online.
+For more than five years I have worked on software for the **Bureau of Immigration in the Philippines**. That included new applications, older systems that still had to keep running, integrations with other services, production problems, and the work of moving transactions that used to be done at a counter to online.
 
-It is a different environment from building a normal website or a small business application. A system used by a government agency needs to consider not only functionality, but also security, reliability, existing infrastructure, procurement requirements, legacy applications, and the people who depend on the service every day.
+It is different from building a normal website or a small business app. A system that a government agency runs on has to deal with security review, the infrastructure that is already there, procurement rules, applications that were written many years ago, and the people who need the service that same day.
 
-## Working on online immigration services
+## Online immigration services
 
-One of the areas I spent a significant amount of time working on was our online services.
+A lot of my time went into the online services. These are the transactions where an applicant submits their information, pays, gets a notification, and finishes part of the process without going to an office.
 
-These systems handle different types of immigration-related transactions where applicants can submit information, make payments, receive notifications, and complete parts of their transactions online instead of doing everything manually.
+My work covered most parts of it. ASP.NET and .NET on the web side, Oracle on the database side, payment gateway and email integrations, background processing, deployment on IIS, and the troubleshooting that comes after it is live. Some of it used current .NET and some of it was older code that still needed support.
 
-My work involved different parts of the application, including:
+That taught me something that took time to accept. In real work you are not always using the newest technology. Sometimes you build something new. More often you have to understand a system that was written years ago and find the safest way to change it without breaking what is already running.
 
-- ASP.NET and .NET web development
-- Oracle database development
-- Payment gateway integrations
-- Email notification integrations
-- API integrations
-- Background processing
-- Production deployment on IIS
-- Troubleshooting production issues
-- Improving existing workflows
+One change I was nervous about was on an older transaction module that had been running for years. Applicants use it every day. I had to change how it saved a transaction so it would work with a newer payment flow, but the same code was also used by transactions that were already in progress.
 
-Some projects were built using newer versions of .NET, while others were legacy applications that still needed to be supported.
+What I was afraid of was breaking a transaction that someone already paid for. Fixing those by hand in production takes time and it is easy to make it worse. So I did it carefully. I copied recent data from production into a test database and ran the old code and the new code on the same records to check that the results matched. I did not delete the old code, I left it there so we could go back to it fast if something was wrong. I deployed it late at night when there is almost no traffic, and I watched the logs and the transaction records for a while before I said it was fine.
 
-That combination taught me an important lesson: **software development in the real world is rarely about always using the newest technology.**
+## Payments are more than an API call
 
-Sometimes your job is to build something new. Other times your job is to understand a system written many years ago and find the safest way to improve it without disrupting existing operations.
+Payment integration sounds like four steps. Send the transaction, let the applicant pay, get the result, update the record.
 
-## Integrating payments is more than calling an API
+In production there is a lot more to handle. The payment goes through but the callback never reaches you. The user closes the browser before coming back. Two notifications arrive for the same payment. For a few minutes the provider and your database do not agree on the status.
 
-I also worked on integrations with different online payment channels.
+Working on those cases is how I actually learned what idempotency, transaction validation, retries, and reconciliation mean, instead of just reading about them.
 
-At first, payment integration sounds straightforward:
+One payment issue took me a while to figure out. Sometimes one payment created two records in our system. The applicant only paid once and was only charged once, but our side made two entries, and a few times it made two official receipts for the same payment. Support saw the duplicate receipts and asked me to check.
 
-1. Send the transaction to the payment provider.
-2. Let the applicant pay.
-3. Receive the result.
-4. Update the transaction.
+I looked at the logs and saw that the payment gateway was sending us the confirmation more than once for the same transaction. I think it was a retry on their side when our response was slow. Our handler just processed whatever came in, so a second confirmation meant a second record. What I did is I made the handler check the gateway reference number first. If we already processed that reference, it just replies okay and does nothing else. After that the duplicate records stopped.
 
-In production, there are many more situations to handle.
+## Supporting systems after they ship
 
-What happens if the payment succeeds but the callback does not reach your system?
+The bigger change was supporting things that were already in production.
 
-What if the user closes the browser before returning to the application?
+During development it is easy to think that if the feature works, the task is done. Production is not like that. A system can pass every test and still behave differently once real users, network restrictions, database load, and external APIs are involved.
 
-What if two notifications arrive for the same payment?
+I have worked on problems across application servers, Oracle, IIS deployments, WordPress infrastructure, third-party APIs, email services, payment notifications, and firewall rules. Now I think about those things while designing. What happens if this API is down. How will we know that something failed. Can the transaction be retried safely. Is there enough logging to check what happened. What happens if the same request comes in twice.
 
-What if the payment provider and your database temporarily disagree about the transaction status?
+## Not always writing code
 
-Working on these scenarios helped me understand concepts such as **idempotency, transaction validation, background processing, logging, retries, and reconciliation** much better than simply reading about them.
+Government work also took me out of the codebase sometimes. I have been in discussions about infrastructure, security, CDN and email platforms, disaster recovery, and the technical requirements for procurement.
 
-## Supporting systems after deployment
+Sometimes the job is to explain a requirement in simpler terms, review a proposed design, point out what is missing, or check whether a vendor's solution can work with what we already have. That made me better at talking about technical things with people who do not write code.
 
-One of the biggest changes in my mindset happened when I started supporting applications that were already in production.
+## What it taught me
 
-During development, it is easy to think:
+A government system is not judged only by how clean the code is. It has to be reliable, easy enough to understand and maintain, secure, and practical for the team that runs it.
 
-> The feature works, so the task is finished.
+The best solution on paper is not always the best one for the situation. Often the better choice is the one that works with the existing systems, can be supported by the current team, fits inside the infrastructure limits, and can keep running for years.
 
-Production teaches you otherwise.
-
-A system can work perfectly during testing but behave differently once real users, network restrictions, database load, external APIs, and infrastructure are involved.
-
-I have worked on issues involving application servers, Oracle databases, IIS deployments, WordPress infrastructure, third-party APIs, email services, payment notifications, and firewall restrictions.
-
-Because of that experience, I now think about questions such as:
-
-- What happens when this API becomes unavailable?
-- How will we know that something failed?
-- Can the transaction safely be retried?
-- Is there enough logging to investigate the problem?
-- What happens if the same request is processed twice?
-- How can we recover without manually modifying production data?
-
-These questions have become part of how I design applications.
-
-## Working with more than just code
-
-Another thing government development taught me is that a developer cannot stay completely inside the codebase.
-
-I have also been involved in technical discussions related to infrastructure, security, CDN services, email platforms, system integrations, disaster recovery, and technical requirements for procurement.
-
-Sometimes my role is not to write code at all.
-
-Instead, I may need to explain a technical requirement in simpler terms, review a proposed architecture, identify missing requirements, or help determine whether a vendor's solution can work with our existing systems.
-
-That experience improved my ability to communicate technical topics to people who are not developers.
-
-## What government development taught me
-
-After several years of working on these systems, one lesson stands out:
-
-**A successful government system is not measured only by how good the code looks.**
-
-It also needs to be reliable, understandable, maintainable, secure, and practical for the organization using it.
-
-The best technical solution on paper is not always the best solution for the environment.
-
-Sometimes the better solution is the one that can integrate with existing systems, can be supported by the current team, works within infrastructure limitations, and can continue operating for years.
-
-Working in immigration has exposed me to problems that I would never encounter by building personal projects alone.
-
-And that experience continues to influence how I approach every system I build today.
+I would not have run into most of these problems if I only built personal projects. That experience still affects how I approach every system I work on.

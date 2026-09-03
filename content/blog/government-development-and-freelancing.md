@@ -6,119 +6,42 @@ tags: ["freelancing", "government", "software-development", "career"]
 published: true
 ---
 
-For several years, my experience as a developer has come from two very different environments.
+For years my work has come from two very different places.
 
-On one side, I have worked on software systems inside the **Bureau of Immigration in the Philippines**.
+One is software inside the **Bureau of Immigration in the Philippines**. The other is freelance and project-based work. They work in different ways, and doing both has changed how I build software.
 
-On the other, I have taken on freelance and project-based software work.
+## Government: think about the whole system
 
-They operate differently, but working in both environments has influenced the way I build software today.
+Government applications do not get replaced every time something newer comes out. There are existing databases, older applications, network policies, security requirements, integrations, and approval processes that all have to keep working. A small change in one application can affect another one.
 
-## Government taught me to think about the whole system
+So I learned to look beyond the feature I was working on. Before making a change I ask what depends on this, will it affect transactions that are already running, how will it behave in production, can the current infrastructure handle it, what happens if it fails, and how will the support team troubleshoot it. That kind of environment made me more careful about architecture and about the parts of a system that have to keep running for a long time.
 
-Working on government applications exposed me to systems that cannot simply be replaced whenever a newer technology becomes available.
+## Freelance: move faster
 
-There are existing databases, legacy applications, network policies, security requirements, integrations, approval processes, and operational procedures that need to continue working.
+Freelance work has a different kind of pressure. The client does not care how clever the code is. They care whether it solves their problem. Budgets are smaller, timelines are shorter, requirements change more often, and usually one person handles everything from understanding the requirements to designing the database to explaining the finished system to the client.
 
-A small change in one application can affect another system.
+That taught me to find the real problem before writing code. A client asks for a specific feature, but after talking through how they actually work, the better solution is often much simpler. Learning when not to over-engineer something has been as useful as learning how to build something complex.
 
-Because of that, I learned to look beyond the feature I was developing.
+One example was a company website I built for a project management and quantity surveying firm. At the start the client asked for a full content management system so they could log in and edit any part of the site themselves, including the project portfolio.
 
-Before making a change, I started asking:
+When we talked more about how they actually work, it did not match that request. They update the project list about two times a year, and nobody on their side wanted to manage a CMS. It would also mean a login to keep secure, more hosting cost, and more software to keep updated.
 
-- Which systems depend on this?
-- Will this change affect existing transactions?
-- How will it behave in production?
-- Can the current infrastructure support it?
-- What happens if something fails?
-- How will the support team troubleshoot it?
+So I built the site as static pages. The project list is kept in a simple file, and when they have a change they send it to me and I update the site and deploy it again. It loads fast, there is very little that can break, and hosting is cheap. They were fine with it once they saw that an update only takes me a short time. If they start needing content changes every week, a CMS makes sense then. Right now it would just be one more thing to maintain.
 
-That environment made me more careful about architecture and long-term maintainability.
+## Communication became part of the job
 
-## Freelancing taught me to move faster
+Both environments changed how I explain things. Inside an organization I might be talking to developers, network administrators, management, procurement, or an outside vendor. In freelance work I explain the same decision directly to the client.
 
-Freelance projects have a different kind of pressure.
+Each of them needs a different version. Instead of saying "we need asynchronous processing with retry logic", it is better to say "if the external service goes down for a while, the transaction will try again on its own instead of someone having to do it by hand". Being able to turn a technical decision into its practical effect is a real part of the job.
 
-A client usually does not care how technically impressive the implementation is.
+## The two feed each other
 
-They care about whether the system solves their problem.
+Government work taught me to be patient and to care about reliability. Freelance work taught me to move faster and adapt. One made me think hard about integration, security, infrastructure, and long-term support. The other pushed me to decide faster, understand the business need, control the scope, and deliver within real limits.
 
-Budgets are smaller.
-
-Timelines can be shorter.
-
-Requirements can change quickly.
-
-And sometimes the developer needs to handle almost everything—from understanding the requirements and designing the database to developing the application and explaining how it works to the client.
-
-That experience taught me how important it is to identify the actual problem before writing code.
-
-A client might request a specific feature, but after discussing their workflow, the best solution may be much simpler.
-
-Learning when **not** to over-engineer something has been just as valuable as learning how to build complex systems.
-
-## Communication became part of development
-
-Working in both environments also improved how I communicate.
-
-Inside an organization, I may need to discuss a system with developers, network administrators, management, procurement personnel, or external vendors.
-
-In freelance work, I may need to explain the same technical decision directly to a client.
-
-Each audience requires a different explanation.
-
-Instead of saying:
-
-> "We need asynchronous processing with retry logic."
-
-Sometimes the better explanation is:
-
-> "If the external service temporarily fails, the transaction will automatically try again instead of requiring someone to process it manually."
-
-Being able to translate technical decisions into their practical impact has become an important part of my work.
-
-## The two environments complement each other
-
-Government development taught me patience and reliability.
-
-Freelancing taught me speed and adaptability.
-
-Government systems made me think carefully about integration, security, infrastructure, and long-term support.
-
-Freelance projects pushed me to make decisions faster, understand business needs, control scope, and deliver within practical limitations.
-
-I have carried lessons from one environment into the other.
-
-When working on a freelance project, my experience maintaining production government systems makes me think about logging, security, backups, and maintainability earlier.
-
-When working on larger organizational projects, my freelance experience reminds me that a solution still needs to be simple enough for people to actually use.
+I bring each one into the other. On a freelance project, my experience keeping government systems running makes me think about logging, security, backups, and maintainability earlier than I used to. On a larger organization project, my freelance experience reminds me that the result still has to be simple enough for people to actually use.
 
 ## I stopped thinking only like a programmer
 
-Probably the biggest change throughout my career is that I stopped seeing software development as simply converting requirements into code.
+The biggest change is that I no longer see the job as just turning requirements into code. You also have to understand the problem behind the requirement. The useful question is often not "how do I build this" but "why do we need it in the first place", and the answer can change the whole solution.
 
-A developer also needs to understand the problem behind the requirement.
-
-Sometimes the right question is not:
-
-> "How do I implement this feature?"
-
-It is:
-
-> "Why do we need this feature in the first place?"
-
-That small difference can completely change the solution.
-
-Whether I am working on a government application, an internal system, a website, an API integration, or a freelance project, that is the mindset I try to bring with me.
-
-## Still learning
-
-There are still plenty of technologies I want to explore and systems I want to build.
-
-But one thing I value about having experience in both government and freelance development is that I have been able to see software from different perspectives.
-
-One environment taught me how important reliability is when thousands of people may depend on a system.
-
-The other taught me how important simplicity is when a client simply needs a problem solved.
-
-Both continue to shape the developer I am becoming.
+There is still a lot I want to learn and build. But I am glad I got to see software from both sides. One taught me what reliability means when a lot of people depend on a system. The other taught me what simple really means when a client just needs their problem solved.

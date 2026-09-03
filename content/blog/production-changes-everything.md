@@ -6,145 +6,52 @@ tags: ["software-engineering", "production", "debugging", "devops"]
 published: true
 ---
 
-One of the biggest differences between learning software development and working as a professional developer is **production**.
+There is a big difference between learning to code and doing it as a job, and for me that difference is production.
 
-When I was starting out, most of my attention was on writing code and making features work.
+When I was starting out, I measured progress by features. The form submits, the list loads, the tests pass, so the work is done. After a few years of maintaining systems that people actually use, I see it differently. Building the feature is usually the easy part. Keeping it running is the part that taught me the most.
 
-After years of maintaining real applications, I learned that writing the feature is often the easier part.
+## When it isn't your code
 
-Keeping it working is where things become interesting.
+A lot of the production problems I remember were not bugs in the application.
 
-## When the problem is not your code
+A website goes down because the database hit its connection limit. A deployment fails because a library that was on my machine was never installed on the server. Sometimes a third-party API just stops sending notifications and nothing tells you. Sometimes an email provider accepts the request but a later step fails anyway. Or a payment goes through on the provider side while our own record still says pending, or a firewall change quietly blocks the app from a service it needs.
 
-I have encountered production issues where the application code itself was not necessarily the main problem.
+After enough of these, I stopped looking at the code first. I go through the whole path instead: user, application, server, database, network, external service. Then I figure out which part actually failed.
 
-A website can suddenly become unavailable because the database has reached its connection limit.
+One time this happened with a third-party API we depend on. Fetching data from it got really slow, slow enough that requests were hanging. The first thing I checked was the connection from our application server to their API. That part was fine, no network issue on our side, and we had not changed the code that calls it.
 
-An application can fail after deployment because a required library exists on the development machine but not on the server.
+So the problem was on their end. I checked our logs and our API monitoring tool to see how long each request was taking. One record fetch from that provider was taking almost 2 to 3 minutes, when it is normally under a second. There was nothing I could fix in our code for that, so I sent them the numbers and asked them to fix it on their side.
 
-A third-party API can stop sending notifications.
+## Logs became my main tool
 
-An email provider can accept a request but another part of the workflow can fail afterward.
+When everything is working, logging feels like extra work. When something breaks in production, it is often the only way to find out what happened.
 
-A payment can succeed externally while the internal transaction remains pending.
+Over time I got more careful about what the application actually records. A good log entry should tell you what operation was running, which transaction it was for, when it happened, which external service was called and what it returned, whether it was retried, and whether another process already handled the same transaction. That last one matters a lot with payments and external APIs, because the result can exist outside your own system.
 
-A firewall rule can unintentionally prevent an application from communicating with a service it depends on.
+## "Works on my machine" isn't enough
 
-These situations changed the way I troubleshoot problems.
+I have worked with different generations of .NET, from old ASP.NET apps to current ones, and deploying them to Windows Server and IIS taught me to pay attention to the environment itself. The .NET runtime version, database drivers, native libraries, IIS and application pool settings, environment variables, certificates, network access, firewall rules. Any of those can be different on the server.
 
-Instead of immediately looking for a bug in the code, I learned to look at the whole path:
+A clean build on my machine does not tell me any of that. So now, when something works locally but fails after deployment, I check the differences between the environments before I assume the code is wrong.
 
-**User → Application → Server → Database → Network → External Service**
+## External services will fail eventually
 
-Any part of that chain can fail.
+Payments, email, APIs, analytics, CDN, authentication. Most apps depend on other platforms for a lot of this. What I learned is simple: do not design an important workflow assuming the external service will always respond correctly.
 
-## Logs became one of my most important tools
+You need a plan for when it fails. Depending on the case, that means retries, background jobs, protection against duplicate requests, status checks, timeout handling, error logging, a way to reconcile records manually, and monitoring. The system becomes a lot more reliable once you treat failure as something that will happen, not something surprising.
 
-When everything is working, logging can feel like additional work.
+## Fixing it is half the job
 
-When something breaks in production, logs become one of the most valuable parts of the system.
+Early in my career, fixing the immediate problem felt like the end of the task. Now I try to ask one more question: how do we stop this from happening again next month?
 
-Over time, I started paying more attention to what information an application records.
+Sometimes the answer is more monitoring. Sometimes it is a better query, a change to the deployment steps, or writing down a server dependency somewhere. Sometimes it is reworking part of the design. And sometimes it is just giving the support team enough information to catch it earlier next time.
 
-A useful log should help answer questions such as:
+For a while the most common support ticket on the eServices portal was "I already paid but my application still says pending." It kept happening because of how online payments work. The applicant pays through GCash, Maya, or Landbank, the payment goes through on the gateway side, but the confirmation never reaches our system. Usually they closed the browser or lost connection before getting redirected back. The payment was real, but our transaction stayed pending, so someone on the team had to check the gateway manually and fix the record by hand. This happened several times a week.
 
-- What operation was being performed?
-- Which transaction was affected?
-- When did the problem happen?
-- Which external service was called?
-- What response was received?
-- Was the operation retried?
-- Did another process already complete the same transaction?
+The fix was a Hangfire job that runs on a schedule and picks up every transaction still marked pending after a few minutes. For each one it calls the gateway's inquiry API, checks the real status, and updates our record if the payment already went through. I also added a check so a repeated confirmation for the same transaction is ignored instead of posting it twice. After that the pending payments cleared themselves and the manual checking mostly stopped.
 
-Without this information, investigating an issue can turn into guesswork.
+## Production made me better
 
-This is especially important when working with payment systems and external APIs because the result of an operation may exist outside your application.
+Maintaining real systems changed how I write software. I think about failure earlier, I validate more, I pay attention to logs, I plan for deployment sooner, and I assume any API can go down. I also try to leave code that the next developer can understand.
 
-## "It works on my machine" is never enough
-
-I have worked with applications using different generations of technology, from legacy ASP.NET systems to modern .NET applications.
-
-Deploying them to Windows Server and IIS taught me to pay attention to the environment itself.
-
-The application may depend on:
-
-- A specific .NET runtime
-- Database drivers
-- Native libraries
-- IIS configuration
-- Application pool settings
-- Environment variables
-- Certificates
-- Network access
-- Firewall rules
-
-A successful local build does not guarantee a successful production deployment.
-
-Today, when something works locally but fails after deployment, I look at differences between environments before assuming the business logic is wrong.
-
-## External services will eventually fail
-
-Modern applications depend heavily on external services.
-
-Payments, email, APIs, analytics, content delivery, authentication, and many other features can depend on another platform.
-
-The important lesson I learned is simple:
-
-**Never design an important workflow assuming an external service will always respond perfectly.**
-
-There should be a plan for failure.
-
-Depending on the workflow, this can mean:
-
-- Retry mechanisms
-- Background jobs
-- Duplicate-request protection
-- Status verification
-- Timeout handling
-- Error logging
-- Manual reconciliation tools
-- Health monitoring
-
-A system becomes much more reliable when failure is treated as a normal possibility instead of an unexpected event.
-
-## Fixing the issue is only half of the job
-
-Early in my career, solving the immediate problem felt like the finish line.
-
-Now I try to ask one more question:
-
-**How do we prevent this from becoming the same incident next month?**
-
-Sometimes the solution is additional monitoring.
-
-Sometimes it is improving database queries.
-
-Sometimes it is changing deployment procedures.
-
-Sometimes it is documenting a server dependency.
-
-Sometimes it means changing the architecture.
-
-And sometimes the best improvement is simply giving the support team enough information to identify the issue earlier.
-
-## Production made me a better developer
-
-Working with production systems changed the way I write software.
-
-I think more about failure scenarios.
-
-I add better validation.
-
-I pay more attention to logs.
-
-I consider deployment earlier.
-
-I think about what happens when an API is unavailable.
-
-And I try to design features that another developer can understand and maintain later.
-
-Building something from scratch is satisfying.
-
-But keeping a real system running while people depend on it every day teaches a completely different set of skills.
-
-For me, those experiences have been some of the most valuable parts of becoming a software engineer.
+Building something new is satisfying. But keeping a real system running while people depend on it every day is a different skill, and it is the one I have learned the most from.

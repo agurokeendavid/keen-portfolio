@@ -196,6 +196,48 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "bimss",
+    title: "BIMSS",
+    shortDescription:
+      "A centralized membership and services platform I'm building for the Bureau of Immigration's employee cooperative (Buklod ng Kawani) — registration, contributions, loans, and secure online elections, on a modular-monolith .NET 10 API with a decoupled Next.js frontend.",
+    fullDescription:
+      "BIMSS (Buklod Integrated Membership and Services System) replaces a Google Forms/Excel-based membership process with a proper system: member registration, verification, and self-service profiles; beneficiary records; monthly contribution history; and a full loan workflow from application through approval, release, and repayment. It also runs Buklod's internal elections — candidate setup, eligible-voter management, secure voting, tallying, and result publication — alongside admin dashboards, notifications, and an audit trail. The backend is a modular monolith: one .NET 10 solution and one SQL Server database, split into Domain/Application/Infrastructure/Contracts layers behind a single Bimss.Api, authenticated with JWT bearer tokens. The frontend is a fully decoupled Next.js/React app using shadcn/ui and Tailwind, talking to the API over REST.",
+    thumbnail: "/projects/bimss/login.png",
+    screenshots: [
+      "/projects/bimss/login.png",
+      "/projects/bimss/dashboard.png",
+      "/projects/bimss/membership-application.png",
+      "/projects/bimss/loan-application.png",
+      "/projects/bimss/loan-accounts.png",
+      "/projects/bimss/my-loan.png",
+      "/projects/bimss/election-form.png",
+      "/projects/bimss/audit-log.png",
+    ],
+    techStack: [
+      "C#",
+      ".NET 10",
+      "ASP.NET Core Web API",
+      "Entity Framework Core",
+      "SQL Server",
+      "JWT Authentication",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "GitHub Actions",
+    ],
+    features: [
+      "Full membership lifecycle: registration, verification, self-service profiles, and status management",
+      "Monthly contribution tracking and an end-to-end loan workflow — application, approval, release, repayment, history",
+      "Secure online Buklod elections: candidate setup, eligible-voter management, voting, and tallying",
+      "Modular-monolith .NET 10 API with JWT bearer auth, consumed by a fully decoupled Next.js/React frontend",
+      "Migration path from the legacy Google Forms/Excel membership records",
+    ],
+    githubUrl: "https://github.com/agurokeendavid/bi-buklod-bimss",
+    featured: true,
+  },
+  {
     id: "spectacon",
     title: "Spectacon",
     shortDescription:

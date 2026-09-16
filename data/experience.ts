@@ -51,9 +51,12 @@ export const experiences: Experience[] = [
     period: "Nov 2025 – Mar 2026",
     current: false,
     description: [
-      "Bantay Pusta – Designed and developed a cross-platform monitoring system using .NET MAUI and .NET Web API.",
+      "Bantay Pusta – Designed and developed a gambling-recovery app for the Filipino recovery community, using .NET MAUI and a .NET Web API backend.",
+      "Built on-device protection: VPN-based local DNS filtering to block gambling apps and websites, plus device-admin tamper protection so users can't disable it.",
+      "Built the recovery side: a recovery journal, milestone tracking, weekly guided tasks, community posts, and quick access to emergency helplines.",
+      "Led a small team of junior developers — assigned and scoped their tasks, reviewed their code, and made the technical calls for the app's architecture.",
     ],
-    techStack: [".NET MAUI", ".NET Web API", "C#"],
+    techStack: [".NET MAUI", ".NET Web API", "C#", "Android VpnService"],
   },
   {
     id: "exp-pueblo",
@@ -91,6 +94,8 @@ export const experiences: Experience[] = [
     current: false,
     description: [
       "Developed accounting modules and third-party integrations using Microsoft Dynamics NAV and SQL Server.",
+      "Built custom reports in Dynamics NAV for accounting and operations teams.",
+      "Wrote custom functions and extended existing modules in C/AL to fit business-specific workflows.",
     ],
     techStack: ["Microsoft Dynamics NAV", "SQL Server", "C/AL"],
   },

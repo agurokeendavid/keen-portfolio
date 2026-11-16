@@ -73,7 +73,10 @@ monitoring dashboards for government/energy clients).
   output. Hover feedback is colour/border only (`hover:border-signal`, `hover:text-signal`).
 - Experience is a single-column timeline (mono meta column + content with a `border-l`
   rule), not an alternating zig-zag of cards. The hero photo is a square with a mono
-  caption, not a circle.
+  caption, not a circle. The caption shows location plus the live Manila time
+  (`ManilaClock` in `HeroSection.tsx`, via `useSyncExternalStore`: renders `--:--` on the
+  server and the real time after hydration — keep it that way to avoid hydration
+  mismatches). Don't add availability/"open to work" taglines there or in the OG image.
 - Theme default is **always light** regardless of OS preference. `layout.tsx`'s
   `theme-init` script and `Navbar.tsx`'s `getPreferredDarkMode` only enable dark mode
   if `localStorage.theme === 'dark'` (i.e. the visitor toggled it themselves) — do not

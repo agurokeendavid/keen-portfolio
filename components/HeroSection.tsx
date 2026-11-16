@@ -1,9 +1,34 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Download } from "lucide-react";
+import { Download, MapPin } from "lucide-react";
 import { Button } from "./Button";
+
+const manilaTime = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Manila",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
+function subscribeToMinute(onChange: () => void) {
+  const id = setInterval(onChange, 15_000);
+  return () => clearInterval(id);
+}
+
+/**
+ * Current time in Manila, so remote clients can see the time-zone overlap at a glance.
+ * Renders "--:--" on the server and swaps to the real time after hydration.
+ */
+function ManilaClock() {
+  const time = useSyncExternalStore(
+    subscribeToMinute,
+    () => manilaTime.format(new Date()),
+    () => null
+  );
+  return <time suppressHydrationWarning>{time ?? "--:--"}</time>;
+}
 
 // Years are computed server-side in app/page.tsx from data/experience.ts and passed in,
 // so the server HTML and the hydrated client always agree.
@@ -102,8 +127,14 @@ export function HeroSection({ yearsOfExperience }: { yearsOfExperience: number }
                 priority
               />
             </div>
-            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-widest text-slate">
-              Manila, PH
+            <figcaption className="mt-3 flex items-center justify-between gap-3 border-t border-line pt-3 font-mono text-[11px] uppercase tracking-widest text-slate">
+              <span className="inline-flex items-center gap-1.5 text-ink">
+                <MapPin className="w-3 h-3 text-signal" aria-hidden="true" />
+                Manila, Philippines
+              </span>
+              <span>
+                <ManilaClock /> <span className="text-line" aria-hidden="true">/</span> UTC+8
+              </span>
             </figcaption>
           </figure>
         </motion.div>

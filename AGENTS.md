@@ -18,18 +18,35 @@ ContactSection, Footer.
 
 ## Structure
 
-- `app/layout.tsx` — fonts, metadata/SEO, theme-init script.
+- `app/layout.tsx` — fonts, metadata/SEO, theme-init script, Vercel Analytics +
+  Speed Insights. No third-party chat widget — Tawk.to was removed deliberately (a
+  portfolio routes contact through the Contact section); don't re-add one.
+- `app/page.tsx` — async Server Component. Loads projects via `projectService` and the
+  latest posts via `getAllPosts()`, then passes them as props to the client sections,
+  so all content is in the initial HTML.
 - `app/globals.css` — design tokens (see below).
+- `app/opengraph-image.tsx`, `app/sitemap.ts`, `app/robots.ts` — generated OG image,
+  sitemap (home, `/blog`, every published post), and robots.txt.
+- `lib/site.ts` — `SITE_URL`, the canonical production URL. Use it instead of
+  hardcoding the domain.
 - `app/api/github/route.ts` — GitHub stats + contribution calendar (needs `GITHUB_PAT`
   env var for the calendar; without it, returns `contributions: null`).
 - `components/` — one file per page section, plus shared `Button`, `Badge`, `Modal`.
 - `data/projects.ts` — `Project[]` and `TechItem[]` (techStack). Single source of truth
   for project and skills content.
-- `data/experience.ts` — work history for `ExperienceSection`.
+- `data/experience.ts` — work history for `ExperienceSection`, plus `careerStart` and
+  `getYearsOfExperience()`, derived from the earliest `period` start ("Mon YYYY – …").
+  **Never hardcode "7+ years"** anywhere — the hero, experience intro, layout metadata
+  and OG image all read this. It's computed server-side and passed as a prop to client
+  components (avoids hydration mismatches); the root layout sets `revalidate = 86400`
+  so static pages roll the number over without a redeploy. Keep `period` strings in
+  `Mon YYYY` form (3-letter month) so parsing stays reliable.
 - `data/services.ts` — `Service[]` (offerings + PHP pricing) plus `formatPeso()`, for
   `ConsultingSection`.
 - `services/projectService.ts` — thin async wrapper around `data/projects.ts`, written
-  to be swapped for a real API later; don't bypass it from components.
+  to be swapped for a real API later. Call it from `app/page.tsx` (server) and pass the
+  result down; don't import `data/projects.ts` project lists directly in components,
+  and don't move the fetch back into a client `useEffect`.
 
 ## Design system ("systems status" aesthetic)
 
@@ -50,6 +67,13 @@ monitoring dashboards for government/energy clients).
   status/metadata labels (dates, tech tags, eyebrows like "LIVE IN PRODUCTION"). This
   mono-label motif is the site's signature — reuse it for new metadata-like copy
   rather than inventing a new treatment.
+- Motion is deliberately restrained: only the hero has an entrance animation, and
+  `ProjectModal` animates open/close. Don't add scroll-triggered fade-ups, staggered
+  reveals, hover lifts, or glow/blur effects to sections — they read as template
+  output. Hover feedback is colour/border only (`hover:border-signal`, `hover:text-signal`).
+- Experience is a single-column timeline (mono meta column + content with a `border-l`
+  rule), not an alternating zig-zag of cards. The hero photo is a square with a mono
+  caption, not a circle.
 - Theme default is **always light** regardless of OS preference. `layout.tsx`'s
   `theme-init` script and `Navbar.tsx`'s `getPreferredDarkMode` only enable dark mode
   if `localStorage.theme === 'dark'` (i.e. the visitor toggled it themselves) — do not
@@ -59,6 +83,12 @@ monitoring dashboards for government/energy clients).
 
 - No About section — it was removed as redundant with Hero/Experience. Any new
   "who I am" copy belongs in `HeroSection.tsx`, kept short.
+- Copy must be backed by something on the site: sectors are government, energy, and
+  real estate (no "fintech" — nothing listed supports it); the "systems live in
+  production" readout is intentionally 2 (BI eServices, Enerlytic). Other client work
+  lives in the resume, which `ProjectsSection` links to. Avoid generic lines ("systems
+  worth trusting", "let's collaborate on interesting problems") and avoid repeating the
+  same sector list in multiple section intros.
 - `Project.featured` in `data/projects.ts` drives the Featured vs. "Other builds" split
   in `ProjectsSection.tsx`/`ProjectCard.tsx`. Featured = live/production enterprise
   systems; Other = smaller or lower-stakes builds. Keep `features` arrays to 3-5
@@ -95,8 +125,9 @@ repo, no database or admin login.
   Tailwind Typography plugin, to keep the "systems status" aesthetic consistent with
   the rest of the site.
 - `components/BlogTeaserSection.tsx` — homepage section showing the latest 3 posts,
-  fed by `getAllPosts()` called in `app/page.tsx` (Server Component) and passed down as
-  props, since the teaser itself needs `"use client"` for the scroll animations.
+  fed by `getAllPosts()` called in `app/page.tsx` and passed down as props. It's a
+  Server Component (as are `SkillsStrip`, `ExperienceSection`, `ContactSection`) —
+  only add `"use client"` to a section when it genuinely needs state or handlers.
 - `Navbar.tsx` now mixes same-page anchors (`/#section`) and real routes (`/blog`).
   `handleNavClick` intercepts and smooth-scrolls only when already on `/`; otherwise
   it lets `next/link` navigate normally. Keep this pattern if more non-anchor routes

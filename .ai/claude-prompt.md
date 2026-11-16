@@ -8,7 +8,7 @@ You are helping on a Next.js 16 + TypeScript portfolio project.
 Instructions:
 - Read and follow the provided project overview.
 - Keep changes minimal and targeted.
-- Preserve existing monochrome design language unless asked otherwise.
+- Preserve the existing "systems status" design language (tokens in AGENTS.md) unless asked otherwise.
 - Do not modify unrelated files.
 - Explain assumptions before coding if requirements are ambiguous.
 - Before implementation, provide 2-3 implementation options with trade-offs and ask me to choose one.

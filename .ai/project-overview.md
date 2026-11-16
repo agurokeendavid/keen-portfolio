@@ -6,12 +6,13 @@ Use this file as shared context before requesting code changes.
 
 - Name: keen-portfolio
 - Type: Personal portfolio web app
-- Frontend: Next.js 16.2.5 (App Router), React 19, TypeScript
+- Frontend: Next.js 16 (App Router), React 19, TypeScript
 - Styling: Tailwind CSS 4, `clsx`, `tailwind-merge`, `class-variance-authority`
 - Animation: Framer Motion
 - Icons: Lucide React
-- Fonts: Geist Sans & Geist Mono (next/font/google)
-- Live chat: Tawk.to (via `TawkToWidget`)
+- Fonts: Space Grotesk (headlines), Geist Sans (body), Geist Mono (labels) via next/font/google
+- Blog: Markdown in `content/blog/` (gray-matter, react-markdown, remark-gfm, rehype-highlight)
+- No third-party chat widget (Tawk.to was removed on purpose)
 - Analytics: Vercel Analytics + Speed Insights
 - Deployment: Vercel (`https://keendavidaguro-portfolio.vercel.app`)
 - Package manager: npm
@@ -26,21 +27,27 @@ Use this file as shared context before requesting code changes.
 
 ## App Structure
 
-- `app/layout.tsx`: Root layout, SEO metadata, fonts, analytics, Tawk.to
-- `app/page.tsx`: Composes all page sections in order
+- `app/layout.tsx`: Root layout, SEO metadata, fonts, theme-init script, analytics
+- `app/page.tsx`: Server Component; loads projects + latest posts and composes all page sections in order
+- `app/opengraph-image.tsx`, `app/sitemap.ts`, `app/robots.ts`: generated OG image, sitemap, robots
+- `app/blog/`: blog index and `[slug]` post pages (statically generated)
 - `app/api/github/route.ts`: GitHub API route — fetches public repos and contribution calendar via GraphQL
 - `components/`: UI sections and reusable UI parts
-	- **Page sections**: `Navbar`, `HeroSection`, `AboutSection`, `ExperienceSection`, `ProjectsSection`, `OpenSourceSection`, `ContactSection`, `Footer`
-	- **Reusable UI**: `Badge`, `Button`, `Modal`, `ProjectCard`, `ProjectModal`, `TawkToWidget`
+	- **Page sections**: `Navbar`, `HeroSection`, `SkillsStrip`, `ExperienceSection`, `ProjectsSection`, `OpenSourceSection`, `BlogTeaserSection`, `ConsultingSection`, `ContactSection`, `Footer`
+	- **Reusable UI**: `Badge`, `Button`, `Modal`, `ProjectCard`, `ProjectModal`
 - `data/projects.ts`: Project definitions and tech stack data
 - `data/experience.ts`: Work experience data
+- `data/services.ts`: Consulting offerings + PHP rate ranges
+- `content/blog/*.md`: Blog posts (filename = slug); `lib/blog.ts` loads them (server-only)
 - `services/projectService.ts`: Local service layer, prepared for future .NET API
 - `lib/utils.ts`: Shared utility helpers (`cn` with clsx + tailwind-merge)
+- `lib/site.ts`: `SITE_URL` canonical production URL
 - `public/projects/*`: Project image assets
 
 ## Current UI Direction
 
-- Premium monochrome look (black, white, grayscale)
+- "Systems status" look: paper-white first, blue `signal` accent, green `live` only for real status; tokens in `app/globals.css` (see AGENTS.md)
+- Mono uppercase labels (Geist Mono) for metadata/eyebrows
 - Responsive mobile-first layout
 - Motion-based interactions and modals
 

@@ -4,21 +4,18 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Download } from "lucide-react";
 import { Button } from "./Button";
-import { Badge } from "./Badge";
-import { heroTechStack } from "@/data/projects";
 
-const readouts = [
-  { value: "7+", label: "Years shipping production code" },
-  { value: "4", label: "Enterprise systems in live use" },
-  { value: "3", label: "Sectors: gov, energy, fintech" },
-];
+// Years are computed server-side in app/page.tsx from data/experience.ts and passed in,
+// so the server HTML and the hydrated client always agree.
+export function HeroSection({ yearsOfExperience }: { yearsOfExperience: number }) {
+  const readouts = [
+    { value: `${yearsOfExperience}+`, label: "Years shipping production code" },
+    { value: "2", label: "Systems live in production" },
+    { value: "3", label: "Sectors: government, energy, real estate" },
+  ];
 
-export function HeroSection() {
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -35,149 +32,80 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 min-h-screen flex flex-col">
-        <div className="flex-1 flex items-center py-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div className="space-y-5">
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight"
-                >
-                  I build systems worth trusting.
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                  className="text-lg text-slate max-w-lg leading-relaxed"
-                >
-                  Keen David Aguro — full-stack engineer, 7+ years. I&apos;ve shipped a national
-                  immigration portal for the Philippine government and an energy analytics
-                  platform running live in the UK, alongside fintech and real-estate systems in
-                  between. .NET, Angular, and Laravel are my core stack.
-                </motion.p>
-              </div>
-
-              {/* Status readout row */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="flex flex-wrap gap-x-8 gap-y-3"
-              >
-                {readouts.map((r) => (
-                  <div key={r.label} className="flex items-baseline gap-2">
-                    <span className="font-display text-2xl font-bold text-ink">{r.value}</span>
-                    <span className="font-mono text-xs text-slate uppercase tracking-wide">
-                      {r.label}
-                    </span>
-                  </div>
-                ))}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row flex-wrap gap-4"
-              >
-                <Button
-                  onClick={() => scrollToSection("#projects")}
-                  size="lg"
-                  className="px-8 py-3 text-lg"
-                >
-                  View My Work
-                </Button>
-
-                <Button
-                  href="/resume.pdf"
-                  download="Keen David Aguro Resume.pdf"
-                  variant="outline"
-                  size="lg"
-                  className="px-8 py-3 text-lg"
-                >
-                  <Download className="w-5 h-5" />
-                  Download CV
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Content - Profile Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex justify-center lg:justify-end"
-            >
-              <div className="relative">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                  className="relative w-80 h-80 md:w-96 md:h-96"
-                >
-                  {/* Glow Effect */}
-                  <div className="absolute inset-0 bg-signal-dim rounded-full blur-2xl" />
-
-                  {/* Image Container */}
-                  <div className="relative w-full h-full rounded-full border-4 border-paper-raised shadow-xl overflow-hidden bg-signal-dim">
-                    <Image
-                      src="/formal_pic.jpg"
-                      alt="Keen David Aguro"
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                      priority
-                      loading="eager"
-                      onError={(e) => {
-                        // Fallback to placeholder if image doesn't exist
-                        const target = e.target as HTMLImageElement;
-                        target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='200' y='200' text-anchor='middle' dy='0.3em' font-family='Arial, sans-serif' font-size='24' fill='%236b7280'%3EYour Photo Here%3C/text%3E%3C/svg%3E";
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Floating Tech Strip */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 min-h-screen flex items-center">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="pb-8 sm:pb-12"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center w-full"
         >
-          <div className="bg-paper-raised rounded-2xl p-6 border border-line">
-            <div className="flex flex-wrap justify-center items-center gap-4">
-              <span className="font-mono text-slate text-xs uppercase tracking-wide hidden sm:block">
-                Stack:
-              </span>
-              <div className="flex flex-wrap justify-center gap-3">
-                {heroTechStack.map((tech: { name: string; category: string }, index: number) => (
-                  <motion.div
-                    key={tech.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.4 + index * 0.06 }}
-                  >
-                    <Badge variant="outline">{tech.name}</Badge>
-                  </motion.div>
-                ))}
-              </div>
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-5">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight max-w-3xl">
+                I build the software behind government portals and energy dashboards.
+              </h1>
+
+              <p className="text-lg text-slate max-w-xl leading-relaxed">
+                Keen David Aguro, full-stack developer, {yearsOfExperience}+ years. I lead
+                development of the Philippine Bureau of Immigration&apos;s eServices portal, and
+                I built Enerlytic, an energy analytics platform running live in the UK. Around
+                those: a real-estate ERP, a federal contracting platform, and mobile apps.
+                .NET, Angular, and Laravel are my core stack.
+              </p>
+            </div>
+
+            {/* Status readout row */}
+            <dl className="flex flex-wrap gap-x-8 gap-y-3">
+              {readouts.map((r) => (
+                <div key={r.label} className="flex items-baseline gap-2">
+                  <dt className="sr-only">{r.label}</dt>
+                  <dd className="font-display text-2xl font-bold text-ink">{r.value}</dd>
+                  <dd aria-hidden="true" className="font-mono text-xs text-slate uppercase tracking-wide">
+                    {r.label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+              <Button
+                onClick={() => scrollToSection("#projects")}
+                size="lg"
+                className="px-8 py-3 text-lg"
+              >
+                View My Work
+              </Button>
+
+              <Button
+                href="/resume.pdf"
+                download="Keen David Aguro Resume.pdf"
+                variant="outline"
+                size="lg"
+                className="px-8 py-3 text-lg"
+              >
+                <Download className="w-5 h-5" />
+                Download CV
+              </Button>
             </div>
           </div>
+
+          {/* Right Content - Profile photo with a status caption */}
+          <figure className="mx-auto lg:mx-0 w-64 sm:w-72 md:w-80">
+            <div className="relative aspect-square overflow-hidden rounded-lg border border-line bg-paper-raised">
+              <Image
+                src="/formal_pic.jpg"
+                alt="Keen David Aguro"
+                fill
+                sizes="(max-width: 640px) 256px, 320px"
+                className="object-cover"
+                priority
+              />
+            </div>
+            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-widest text-slate">
+              Manila, PH
+            </figcaption>
+          </figure>
         </motion.div>
       </div>
     </section>

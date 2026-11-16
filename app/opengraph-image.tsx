@@ -1,8 +1,10 @@
 import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
+import { getYearsOfExperience } from "@/data/experience";
 
 export const runtime = "nodejs";
+export const revalidate = 86400; // keeps the computed years current
 export const alt = "Keen David Aguro — Full-Stack Software Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -59,32 +61,13 @@ export default function Image() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 640 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                background: SIGNAL_DIM,
-                color: SIGNAL,
-                fontSize: 20,
-                fontWeight: 600,
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                padding: "8px 18px",
-                borderRadius: 999,
-                alignSelf: "flex-start",
-              }}
-            >
-              Available — Remote / Worldwide
-            </div>
-
             <div style={{ display: "flex", fontSize: 64, fontWeight: 700, color: INK, letterSpacing: -1 }}>
               Keen David Aguro
             </div>
 
             <div style={{ display: "flex", fontSize: 28, color: SLATE, lineHeight: 1.4 }}>
-              Full-stack engineer — 7+ years building production systems for
-              government, energy, and fintech.
+              Full-stack developer, {getYearsOfExperience()}+ years building production
+              systems for government, energy, and real estate.
             </div>
           </div>
         </div>

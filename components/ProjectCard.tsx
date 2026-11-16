@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "./Badge";
 import { Project } from "@/data/projects";
@@ -8,7 +7,6 @@ import { ExternalLink, Github } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
   onClick: () => void;
   variant?: "featured" | "compact";
 }
@@ -34,18 +32,22 @@ function StatusEyebrow({ project }: { project: Project }) {
   );
 }
 
-export function ProjectCard({ project, index, onClick, variant = "featured" }: ProjectCardProps) {
+export function ProjectCard({ project, onClick, variant = "featured" }: ProjectCardProps) {
   const isCompact = variant === "compact";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -4 }}
-      className={`group cursor-pointer ${isCompact ? "" : "h-full"}`}
+    <div
+      className={`group cursor-pointer rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal ${isCompact ? "" : "h-full"}`}
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View case study: ${project.title}`}
     >
       <div
         className={`bg-paper-raised rounded-xl overflow-hidden border border-line hover:border-signal transition-all duration-300 shadow-sm hover:shadow-lg ${
@@ -72,37 +74,32 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
             }}
           />
 
-          {!isCompact && (
-            <div className="absolute inset-0 bg-ink/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (project.liveUrl) window.open(project.liveUrl, "_blank");
-                }}
-                className={`p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors ${
-                  !project.liveUrl ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                disabled={!project.liveUrl}
-              >
-                <ExternalLink className="w-5 h-5" />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (project.githubUrl) window.open(project.githubUrl, "_blank");
-                }}
-                className={`p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors ${
-                  !project.githubUrl ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                disabled={!project.githubUrl}
-              >
-                <Github className="w-5 h-5" />
-              </motion.button>
+          {!isCompact && (project.liveUrl || project.githubUrl) && (
+            <div className="absolute inset-0 bg-ink/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.title} live site`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                >
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.title} on GitHub`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -156,6 +153,6 @@ export function ProjectCard({ project, index, onClick, variant = "featured" }: P
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

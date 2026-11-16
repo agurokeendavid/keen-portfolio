@@ -17,7 +17,7 @@ Project context:
 - Tailwind CSS 4
 - Framer Motion
 - Lucide React
-- Premium monochrome portfolio UI
+- "systems status" portfolio UI (paper-white, blue signal accent)
 - Keep changes scoped and avoid unrelated refactors
 - Do not add backend work unless requested
 - Do not add dependencies unless clearly justified
@@ -40,7 +40,7 @@ Use `.ai/project-overview.md` as the base project context.
 You are helping plan a change for my Next.js portfolio project.
 
 Goal:
-Improve the first impression of the portfolio homepage while preserving the premium monochrome design.
+Improve the first impression of the portfolio homepage while preserving the "systems status" design system (see AGENTS.md).
 
 Relevant files:
 - app/layout.tsx
@@ -74,7 +74,7 @@ Use this when you want Codex to directly edit files and run validation.
 Use `.ai/project-overview.md` as repo context.
 
 Task:
-Update the hero section so the homepage has a stronger above-the-fold presentation while preserving the current monochrome portfolio style.
+Update the hero section so the homepage has a stronger above-the-fold presentation while preserving the current "systems status" design system.
 
 Allowed files:
 - components/HeroSection.tsx
@@ -87,7 +87,7 @@ Out of scope:
 
 Acceptance criteria:
 1. Hero remains responsive on mobile and desktop.
-2. Visual style stays premium monochrome.
+2. Visual style stays consistent with the design tokens in AGENTS.md.
 3. Existing buttons, links, and motion behavior still work.
 4. TypeScript remains valid.
 
@@ -114,7 +114,7 @@ Task:
 Polish the spacing, responsive layout, and Tailwind classes without changing the component API.
 
 Requirements:
-- Preserve the current monochrome visual style.
+- Preserve the current "systems status" visual style (design tokens in AGENTS.md).
 - Keep TypeScript strictness intact.
 - Do not add dependencies.
 - Reuse existing patterns in this file.
@@ -172,7 +172,7 @@ Task:
 [Describe the UI change.]
 
 Design direction:
-- Premium monochrome portfolio design.
+- "Systems status" portfolio design (design tokens in AGENTS.md).
 - Clean spacing, strong hierarchy, subtle motion.
 - Mobile-first responsive layout.
 - Avoid decorative clutter.

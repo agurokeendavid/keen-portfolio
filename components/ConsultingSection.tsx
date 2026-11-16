@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { services, alsoAvailable, formatPeso } from "@/data/services";
 
 function scrollToContact() {
@@ -11,11 +10,7 @@ export function ConsultingSection() {
   return (
     <section id="consulting" className="py-20 bg-paper-raised">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-16"
         >
           <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">How I can help</p>
@@ -27,16 +22,12 @@ export function ConsultingSection() {
             architecture review to a full production build. The rates are here so you can
             budget before you get in touch.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <motion.div
+          {services.map((service) => (
+            <div
               key={service.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
               className="flex flex-col rounded-2xl border border-line bg-paper p-6"
             >
               <h3 className="font-display text-xl font-bold text-ink">{service.name}</h3>
@@ -86,15 +77,11 @@ export function ConsultingSection() {
                   Get a quote →
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
+        <div
           className="mt-14 text-center"
         >
           <p className="font-mono text-xs text-slate uppercase tracking-widest mb-2">Also available</p>
@@ -111,19 +98,15 @@ export function ConsultingSection() {
               </span>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+        <p
           className="text-center font-mono text-xs text-slate mt-10 max-w-2xl mx-auto leading-relaxed"
         >
           Rates are in Philippine peso. The ranges are a starting point. A real quote depends
           on the scope, the timeline, and the platform. For clients outside the Philippines I
           bill the equivalent in USD.
-        </motion.p>
+        </p>
       </div>
     </section>
   );

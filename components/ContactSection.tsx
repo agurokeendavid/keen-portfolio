@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, Facebook } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -66,11 +63,7 @@ export function ContactSection() {
     <section id="contact" className="py-20 bg-paper relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-16"
         >
           <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Get in touch</p>
@@ -81,28 +74,19 @@ export function ContactSection() {
             I&apos;m open to freelance work and full-time roles. If you have a project in
             mind or a question, the links below are the best way to reach me.
           </p>
-        </motion.div>
+        </div>
 
         <div className="max-w-3xl mx-auto space-y-10">
           {/* Primary contact methods */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+          <div
             className="grid sm:grid-cols-3 gap-4"
           >
-            {primaryLinks.map((contact, index) => (
-              <motion.a
+            {primaryLinks.map((contact) => (
+              <a
                 key={contact.name}
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -4 }}
                 className="flex flex-col items-center text-center gap-3 p-6 bg-paper-raised rounded-2xl border border-line hover:border-signal transition-all duration-300 group"
               >
                 <div className="p-3 bg-signal-dim rounded-full group-hover:bg-signal group-hover:text-paper transition-colors text-signal">
@@ -112,16 +96,12 @@ export function ContactSection() {
                   <h4 className="text-ink font-semibold">{contact.name}</h4>
                   <p className="text-slate text-sm break-all">{contact.label}</p>
                 </div>
-              </motion.a>
+              </a>
             ))}
-          </motion.div>
+          </div>
 
           {/* Secondary — messaging channels */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            viewport={{ once: true }}
+          <div
             className="flex flex-wrap justify-center gap-3"
           >
             {secondaryLinks.map((contact) => (
@@ -136,7 +116,7 @@ export function ContactSection() {
                 {contact.name}
               </a>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

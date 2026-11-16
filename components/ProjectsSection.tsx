@@ -1,32 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModal } from "./ProjectModal";
-import { Project } from "@/data/projects";
-import { projectService } from "@/services/projectService";
+import type { Project } from "@/data/projects";
 
-export function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
+// Projects are loaded server-side in app/page.tsx (via projectService) and passed in,
+// so they're in the initial HTML for crawlers and there's no loading flash.
+export function ProjectsSection({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        const projectData = await projectService.getAllProjects();
-        setProjects(projectData);
-      } catch (error) {
-        console.error('Failed to load projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProjects();
-  }, []);
 
   const openProjectModal = (project: Project) => {
     setSelectedProject(project);
@@ -38,34 +21,16 @@ export function ProjectsSection() {
     setSelectedProject(null);
   };
 
-  if (loading) {
-    return (
-      <section id="projects" className="py-20 bg-paper">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-pulse space-y-4">
-              <div className="h-12 bg-line rounded w-1/3 mx-auto" />
-              <div className="h-4 bg-line rounded w-1/2 mx-auto" />
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   const featuredProjects = projects.filter((p) => p.featured);
   const otherProjects = projects.filter((p) => !p.featured);
+  const liveCount = featuredProjects.filter((p) => p.liveUrl).length;
 
   return (
     <>
       <section id="projects" className="py-20 bg-paper">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+          <div
             className="text-center mb-16"
           >
             <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Case studies</p>
@@ -73,18 +38,17 @@ export function ProjectsSection() {
               Selected Work
             </h2>
             <p className="text-xl text-slate max-w-3xl mx-auto leading-relaxed">
-              Production systems I&apos;ve designed and shipped — spanning government, energy,
-              fintech, and real estate.
+              {featuredProjects.length} systems I&apos;ve worked on in depth, with screenshots and
+              the stack behind each. {liveCount} are live in production today.
             </p>
-          </motion.div>
+          </div>
 
           {/* Featured Projects Grid */}
           <div className="grid md:grid-cols-2 gap-8">
-            {featuredProjects.map((project, index) => (
+            {featuredProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
-                index={index}
                 onClick={() => openProjectModal(project)}
                 variant="featured"
               />
@@ -98,12 +62,11 @@ export function ProjectsSection() {
                 Other builds
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
-                {otherProjects.map((project, index) => (
+                {otherProjects.map((project) => (
                   <ProjectCard
                     key={project.id}
                     project={project}
-                    index={index}
-                    onClick={() => openProjectModal(project)}
+                        onClick={() => openProjectModal(project)}
                     variant="compact"
                   />
                 ))}
@@ -111,34 +74,17 @@ export function ProjectsSection() {
             </div>
           )}
 
-          {/* View All Projects CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-16"
-          >
-            <p className="text-slate mb-6">
-              Interested in seeing more of my work?
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const element = document.querySelector("#contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-paper rounded-md font-semibold hover:bg-signal transition-colors"
+          {/* Pointer to the resume for the rest of the client work */}
+          <p className="mt-16 text-center font-mono text-xs text-slate uppercase tracking-widest">
+            More client work is listed in my{" "}
+            <a
+              href="/resume.pdf"
+              download="Keen David Aguro Resume.pdf"
+              className="text-signal hover:underline"
             >
-              Get In Touch
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.button>
-          </motion.div>
+              resume
+            </a>
+          </p>
         </div>
       </section>
 

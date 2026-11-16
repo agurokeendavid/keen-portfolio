@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import {
-  Star, GitFork, Users, BookOpen, ExternalLink, Loader2,
+  Star, GitFork, BookOpen, ExternalLink, Loader2,
 } from "lucide-react";
 
 function GitHubIcon({ className }: { className?: string }) {
@@ -73,20 +73,15 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 function StatCard({
-  label, value, icon: Icon, loading, delay,
+  label, value, icon: Icon, loading,
 }: {
   label: string;
   value: string | number;
   icon: React.ElementType;
   loading: boolean;
-  delay: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
+    <div
       className="rounded-xl border border-line bg-paper p-5 text-center"
     >
       <Icon className="w-5 h-5 mx-auto mb-2 text-slate" />
@@ -96,22 +91,17 @@ function StatCard({
         <p className="font-display text-2xl font-bold text-ink">{value}</p>
       )}
       <p className="font-mono text-xs text-slate mt-1">{label}</p>
-    </motion.div>
+    </div>
   );
 }
 
-function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
+function RepoCard({ repo }: { repo: GitHubRepo }) {
   const color = repo.language ? (LANGUAGE_COLORS[repo.language] ?? "#6b7078") : "#6b7078";
   return (
-    <motion.a
+    <a
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -2 }}
       className="block rounded-xl border border-line bg-paper p-4 hover:border-signal transition-colors"
     >
       <div className="flex items-start justify-between gap-2 mb-2">
@@ -141,7 +131,7 @@ function RepoCard({ repo, index }: { repo: GitHubRepo; index: number }) {
           {repo.forks_count}
         </span>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
@@ -168,18 +158,12 @@ export function OpenSourceSection() {
   const statCards = [
     { label: "Public Repos", value: stats?.publicRepos ?? "—", icon: BookOpen },
     { label: "Total Stars",  value: stats?.totalStars  ?? "—", icon: Star },
-    { label: "Total Forks",  value: stats?.totalForks  ?? "—", icon: GitFork },
-    { label: "Followers",    value: stats?.followers   ?? "—", icon: Users },
   ];
 
   return (
     <section id="open-source" className="py-20 bg-paper-raised">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-16"
         >
           <p className="font-mono text-xs text-slate uppercase tracking-widest mb-3">Public activity</p>
@@ -187,18 +171,15 @@ export function OpenSourceSection() {
             GitHub &amp; Open Source
           </h2>
           <p className="text-lg text-slate max-w-2xl mx-auto">
-            My public work, open source contributions, and community activity.
+            Most of my production work is private government and client code, so this is
+            only the public slice: side projects and reference repos, pulled live from GitHub.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
           {/* ── Left: profile card · stats · top repos ── */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+          <div
             className="space-y-6"
           >
             {/* Profile card */}
@@ -225,14 +206,13 @@ export function OpenSourceSection() {
 
             {/* Stat grid */}
             <div className="grid grid-cols-2 gap-4">
-              {statCards.map(({ label, value, icon }, index) => (
+              {statCards.map(({ label, value, icon }) => (
                 <StatCard
                   key={label}
                   label={label}
                   value={value}
                   icon={icon}
                   loading={loading}
-                  delay={0.3 + index * 0.1}
                 />
               ))}
             </div>
@@ -261,8 +241,8 @@ export function OpenSourceSection() {
                 </div>
               ) : stats?.topRepos.length ? (
                 <div className="space-y-3">
-                  {stats.topRepos.map((repo, i) => (
-                    <RepoCard key={repo.id} repo={repo} index={i} />
+                  {stats.topRepos.map((repo) => (
+                    <RepoCard key={repo.id} repo={repo} />
                   ))}
                 </div>
               ) : (
@@ -271,14 +251,10 @@ export function OpenSourceSection() {
                 </p>
               )}
             </div>
-          </motion.div>
+          </div>
 
           {/* ── Right: contribution graph · CTA ── */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
+          <div
             className="space-y-6"
           >
             {/* Contribution graph — only rendered with real data, never fabricated */}
@@ -325,26 +301,37 @@ export function OpenSourceSection() {
               </div>
             )}
 
-            {/* CTA */}
+            {/* Pointer to the most representative public repo */}
             <div className="rounded-2xl border border-line bg-paper p-6">
-              <h3 className="font-bold text-ink mb-2">
-                Want to collaborate?
+              <p className="font-mono text-[11px] text-slate uppercase tracking-widest mb-2">
+                Start here
+              </p>
+              <h3 className="font-display text-lg font-bold text-ink mb-2">
+                .NET Software Craftsmanship
               </h3>
               <p className="text-sm text-slate mb-4 leading-relaxed">
-                I&apos;m open to contributing to open source projects, reviewing code, or
-                pairing on interesting engineering problems.
+                A public repo for working through software engineering ideas in C#, written for
+                developers who already ship .NET for a living.
               </p>
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-ink text-paper text-sm font-semibold hover:bg-signal transition-colors"
-              >
-                <GitHubIcon className="w-4 h-4" />
-                Follow on GitHub
-              </a>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <a
+                  href={`${GITHUB_URL}/dotnet-software-craftsmanship`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-ink text-paper text-sm font-semibold hover:bg-signal transition-colors"
+                >
+                  <GitHubIcon className="w-4 h-4" />
+                  View the repo
+                </a>
+                <Link
+                  href="/blog/dotnet-software-craftsmanship"
+                  className="text-sm font-medium text-signal hover:underline"
+                >
+                  Why I started it →
+                </Link>
+              </div>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

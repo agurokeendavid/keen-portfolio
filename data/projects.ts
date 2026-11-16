@@ -300,19 +300,6 @@ export const projects: Project[] = [
 ];
 
 // Curated list for hero section — complex/enterprise technologies a recruiter should notice
-export const heroTechStack = [
-  { name: "C#", category: "Backend" },
-  { name: "ASP.NET Core", category: "Backend" },
-  { name: "Angular", category: "Frontend" },
-  { name: "TypeScript", category: "Frontend" },
-  { name: "SignalR", category: "Backend" },
-  { name: "Entity Framework", category: "Backend" },
-  { name: "Oracle", category: "Database" },
-  { name: "Docker", category: "DevOps" },
-  { name: "GitHub Actions", category: "DevOps" },
-  { name: "Laravel", category: "Backend" },
-];
-
 export interface TechItem {
   name: string;
   category: string;

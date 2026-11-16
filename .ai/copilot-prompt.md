@@ -8,7 +8,7 @@ Use the repository context and implement the task directly.
 Requirements:
 - Keep edits scoped to requested files.
 - Follow existing Next.js App Router patterns.
-- Keep UI consistent with current monochrome theme.
+- Keep UI consistent with the "systems status" design tokens in AGENTS.md.
 - Reuse existing utilities/components where possible.
 - Run relevant checks after editing.
 

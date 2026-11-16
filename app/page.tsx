@@ -9,17 +9,21 @@ import { BlogTeaserSection } from "@/components/BlogTeaserSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { getAllPosts } from "@/lib/blog";
+import { projectService } from "@/services/projectService";
+import { getYearsOfExperience } from "@/data/experience";
 
-export default function Home() {
+export default async function Home() {
+  const projects = await projectService.getAllProjects();
   const latestPosts = getAllPosts().slice(0, 3);
+  const yearsOfExperience = getYearsOfExperience();
 
   return (
     <main className="min-h-screen">
       <Navbar />
-      <HeroSection />
+      <HeroSection yearsOfExperience={yearsOfExperience} />
       <SkillsStrip />
-      <ExperienceSection />
-      <ProjectsSection />
+      <ExperienceSection yearsOfExperience={yearsOfExperience} />
+      <ProjectsSection projects={projects} />
       <OpenSourceSection />
       <BlogTeaserSection posts={latestPosts} />
       <ConsultingSection />

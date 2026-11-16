@@ -3,7 +3,6 @@
 import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { Moon, Sun, Menu, X, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -86,9 +85,7 @@ export function Navbar() {
   }
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+    <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
         scrolled
@@ -98,25 +95,19 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="shrink-0"
           >
             <Link href="/#home" onClick={(e) => handleNavClick(e, "/#home")} className="font-display text-xl font-bold text-ink">
               Keen David Aguro
             </Link>
-          </motion.div>
+          </div>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {navLinks.map((link, index) => (
-                <motion.div
+              {navLinks.map((link) => (
+                <div
                   key={link.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * (index + 2) }}
                 >
                   <Link
                     href={link.href}
@@ -125,36 +116,33 @@ export function Navbar() {
                   >
                     {link.name}
                   </Link>
-                </motion.div>
+                </div>
               ))}
-              <motion.a
+              <a
                 href="/resume.pdf"
                 download="Keen David Aguro Resume.pdf"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * (navLinks.length + 2) }}
                 className="inline-flex items-center gap-1.5 border border-line text-slate hover:text-signal hover:border-signal px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 Resume
-              </motion.a>
+              </a>
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
-            <motion.button
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
+            <button
               onClick={toggleTheme}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
               className="p-2 rounded-md text-slate hover:text-ink hover:bg-signal-dim transition-colors"
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </motion.button>
+            </button>
 
             <div className="md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
                 className="p-2 rounded-md text-slate hover:text-ink hover:bg-signal-dim transition-colors"
               >
                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -165,10 +153,7 @@ export function Navbar() {
       </div>
 
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
+        <div
           className="md:hidden bg-paper border-t border-line"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -191,8 +176,8 @@ export function Navbar() {
               Resume
             </a>
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 }

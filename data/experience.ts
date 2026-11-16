@@ -21,7 +21,7 @@ export const experiences: Experience[] = [
     description: [
       "Enerlytic Energy Monitoring Platform – Built .NET 6 Web API backend integrating European utility APIs with Angular dashboards.",
       "Backride Pinas Booking Platform – Developed Laravel backend APIs and Angular frontend for ride booking services.",
-      "Federal Gov App – Implemented Laravel APIs and mobile integrations for Android (Java) and iOS (Swift).",
+      "Federal Forecasting App – Implemented Laravel APIs and mobile integrations for Android (Java) and iOS (Swift).",
       "Delivered management systems and dashboards for startups, small businesses, and academic thesis projects.",
     ],
     techStack: [".NET 6", "Angular", "Laravel", "Java (Android)", "Swift", "MySQL", "REST APIs"],
@@ -77,7 +77,7 @@ export const experiences: Experience[] = [
     company: "Bureau of Immigration – Republic of the Philippines",
     companyUrl: "https://immigration.gov.ph",
     location: "Manila, Philippines",
-    period: "Oct 2019 – March 2022",
+    period: "Oct 2019 – Mar 2022",
     current: false,
     description: [
       "Developed enterprise immigration processing systems handling visa, travel document, and clearance workflows.",
@@ -100,3 +100,24 @@ export const experiences: Experience[] = [
     techStack: ["Microsoft Dynamics NAV", "SQL Server", "C/AL"],
   },
 ];
+
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+/** Parses the start of a period like "Jan 2019 – Present" or "March 2022 – ...". */
+function parsePeriodStart(period: string): Date {
+  const [month, year] = period.split("–")[0].trim().split(/\s+/);
+  const monthIndex = MONTHS.indexOf(month.slice(0, 3).toLowerCase());
+  return new Date(Number(year), Math.max(monthIndex, 0), 1);
+}
+
+/** Start of the earliest role in `experiences` — the first day of my career. */
+export const careerStart: Date = experiences
+  .map((exp) => parsePeriodStart(exp.period))
+  .reduce((earliest, d) => (d < earliest ? d : earliest));
+
+/** Full years elapsed since `careerStart` (e.g. 7 between Jan 2019 and Nov 2026). */
+export function getYearsOfExperience(now: Date = new Date()): number {
+  let years = now.getFullYear() - careerStart.getFullYear();
+  if (now.getMonth() < careerStart.getMonth()) years -= 1;
+  return years;
+}

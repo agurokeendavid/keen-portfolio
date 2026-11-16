@@ -14,9 +14,6 @@ export interface ProjectService {
 // Will be replaced with actual API calls to .NET Web API
 class LocalProjectService implements ProjectService {
   async getAllProjects(): Promise<Project[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
     // Future implementation will be:
     // const response = await fetch(`${API_BASE_URL}/api/projects`);
     // if (!response.ok) {
@@ -28,9 +25,6 @@ class LocalProjectService implements ProjectService {
   }
 
   async getProjectById(id: string): Promise<Project | null> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
     // Future implementation will be:
     // const response = await fetch(`${API_BASE_URL}/api/projects/${id}`);
     // if (response.status === 404) {
@@ -45,9 +39,6 @@ class LocalProjectService implements ProjectService {
   }
 
   async getProjectsByTechnology(tech: string): Promise<Project[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
     // Future implementation will be:
     // const response = await fetch(`${API_BASE_URL}/api/projects/by-technology/${encodeURIComponent(tech)}`);
     // if (!response.ok) {
